@@ -1,0 +1,3 @@
+D:/projects/c++/miniShark/cmake-build-debug/CMakeFiles/miniShark.dir
+D:/projects/c++/miniShark/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/projects/c++/miniShark/cmake-build-debug/CMakeFiles/rebuild_cache.dir
