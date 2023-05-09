@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MiniShark - Main panel</title>
+	<!--link rel="shortcut icon" href="logo.ico" type="image/x-icon"-->
+	<link rel="stylesheet" type="text/css" href="style/all_style.css">
+	<link rel="stylesheet" type="text/css" href="style/panou_style.css">
+</head>
+<body>
+	<header id="header">
+		<div id="logo"></div>
+		<table id="meniu">
+			<ul>
+				<td><a href="home.html">Tutorial</a></td>
+				<td><a href="panou.html">Main panel</a></ul></td>
+		</table>
+			<div id="light-dark">
+				<label for="light-dark"></label>
+				<input name="light-dark" type="checkbox" class="checkbox" id="checkbox">
+				<label for="checkbox" class="checkbox-label">
+					<i class="fas fa-moon"></i>
+					<i class="fas fa-sun"></i>
+			    <span class="ball"></span></label>
+			</div>
+	</header>
+	<main>
+		<table id="colect">
+			<tr><td><label for="conexiune">Select your internet connection</label></td>
+				<td class="colectare rand2">
+				<select id="conexiune">
+					<option value="Wi-fi">Wi-fi</option>
+					<option value="Ethernet">Ethernet</option>
+				</select></td></tr>
+			<tr><td class="colectare"><label for="so">Select your Operating System</label></td>
+				<td class="colectare rand2"><select id="so">
+					<option value="Windows">Windows</option>
+					<option value="Linux">Linux</option>
+				</select></td></tr>
+			<tr><td><label for="file">Choose a file</label></td>
+				<td class="rand2">
+					<div class="upload-btn-wrapper">
+						<form method="POST" enctype="multipart/form-data" action="/upload">
+							<input type="file" name="file" id="file">
+							<button class="btn" type="submit">Upload a file</button>
+						</form>
+
+					</div>
+				</td></tr>
+			<tr><td></td><td id="eroare"></td>
+			<tr><td class="colectare"></td>
+				<td class="colectare"><button type="submit" id="save">Save</button></td></tr>
+		</table>
+		<br>
+		<table id="filtreID">
+				<tr class="filtre">
+					<td class="filtre"><button id="human_readable" disabled="true">Human readable</button></td>
+					<td class="filtre"><button id="hex" disabled="true">HEX packet</button></td>
+					<td class="filtre"><button id="capture" disabled="true">Packet capture</button></td>
+				</tr>
+		</table>
+		<label for="consola"></label>
+		<textarea disabled id="consola">Here you will see the data in the required format.</textarea>
+	</main>
+	<script type="text/javascript" src="all.js"></script>
+	<script type="text/javascript" src="panou.js"></script>
+</body>
+</html>

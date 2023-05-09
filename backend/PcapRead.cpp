@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <winsock.h>
 
 
 using namespace std;
@@ -36,8 +37,9 @@ int main() {
     // Read the PCAP file header
     pcap_global_header file_header;
     file.read(reinterpret_cast<char*>(&file_header), sizeof(file_header)); //reads pcap file header and interprets it
+    //printf("%x", ntohs(file_header.version_major));
 
-    cout << "Magic number: " << file_header.magic_number<< "\n";
+    cout << "Magic number: " <<hex<< file_header.magic_number<< "\n";
     cout << "Version major: " <<file_header.version_major<< "\n";
     cout << "Version minor: " <<file_header.version_minor<< "\n";
     cout << "Thiszone: " <<file_header.thiszone<< "\n";

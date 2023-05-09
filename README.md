@@ -1,1 +1,1 @@
-# miniShark
+<img src="D:\projects\c++\miniShark\style\logo-light.png">
