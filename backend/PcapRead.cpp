@@ -69,7 +69,7 @@ int main() {
     else if (file_header.network == 104)
         cout << "NETWORK: HDLC(High-Level Data Link Control)\n";
     else cout << "NETWORK: FDDI(Fiber Distributed Data Interface)\n";
-    cout << "\n\n\n";
+    cout << "\n\n";
 
     // Loop through the packets in the file
     vector<pcap_packet>packets;
@@ -95,10 +95,13 @@ int main() {
         cout << "TIMESTAMP: " << packet.pcapPacketHeader.ts_sec << "." << packet.pcapPacketHeader.ts_usec << "\n";
         cout << "CAPTURED LENGTH: " << packet.pcapPacketHeader.incl_len << " bytes\n";
         cout << "ORIGINAL LENGTH: " << packet.pcapPacketHeader.orig_len << " bytes\n";
-        for (::uint8_t data:packet.data) {
-            cout << hex << data;
+        for (size_t i = 0; i < packet.data.size(); ++i) {
+            cout << packet.data[i];
+
+            if ((i + 1) % 16 == 0)
+                cout << "\n";
         }
-        cout << "\n\n\n";
+        cout << "\n\n";
     }
     //print packets
     return 0;
