@@ -76,23 +76,23 @@ void parseEthernet(vector<uint8_t> packetData, Json::Value root);
 
 void parseIPv4(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4TCP(vector<uint8_t> packetData);
+void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4ICMP(vector<uint8_t> packetData);
+void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4UDP(vector<uint8_t> packetData);
+void parseIPv4UDP(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4IPv6(vector<uint8_t> packetData);
+void parseIPv4IPv6(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4ESP(vector<uint8_t> packetData);
+void parseIPv4ESP(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4AH(vector<uint8_t> packetData);
+void parseIPv4AH(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4OSPF(vector<uint8_t> packetData);
+void parseIPv4OSPF(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4SCTP(vector<uint8_t> packetData);
+void parseIPv4SCTP(vector<uint8_t> packetData, Json::Value root);
 
-int main() {
+int main(int argc, char* argv[]) {
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
         std::cerr << "Failed to initialize Winsock." << std::endl;
@@ -190,7 +190,7 @@ void printPacket(vector<PcapPacket> packets) {
     for (int i = 0; i < packets.size(); ++i) {
         PcapPacket packet = packets[i];
         Json::Value root;
-        root["Packet"] = to_string(i+1);
+        root["Packet Number"] = to_string(i+1);
         //cout << "Packet " << i+1 << "\n";
 
         if (littleEndian == true){
@@ -200,13 +200,9 @@ void printPacket(vector<PcapPacket> packets) {
             packet.pcapPacketHeader.origLen = ntohl(packet.pcapPacketHeader.origLen);
         }
 
-        root["Timestamp"] = to_string(packet.pcapPacketHeader.tsSec) + "." + to_string(packet.pcapPacketHeader.tsUsec);
-        root["Captured Length"] = to_string(packet.pcapPacketHeader.inclLen) + " bytes";
-        root["Original Length"] = to_string(packet.pcapPacketHeader.origLen) + " bytes";
-
-//        cout << "TIMESTAMP: " << packet.pcapPacketHeader.tsSec << "." << packet.pcapPacketHeader.tsUsec << "\n";
-//        cout << "CAPTURED LENGTH: " << packet.pcapPacketHeader.inclLen << " bytes\n";
-//        cout << "ORIGINAL LENGTH: " << packet.pcapPacketHeader.origLen << " bytes\n";
+        root["Packet Timestamp"] = to_string(packet.pcapPacketHeader.tsSec) + "." + to_string(packet.pcapPacketHeader.tsUsec);
+        root["Packet Captured Length"] = to_string(packet.pcapPacketHeader.inclLen) + " bytes";
+        root["Packet Original Length"] = to_string(packet.pcapPacketHeader.origLen) + " bytes";
 
         parseEthernet(packet.data, root);
 
@@ -228,16 +224,8 @@ void parseEthernet(vector<uint8_t> packetData, Json::Value root) {
             macAdress << ":";
     }
     macAdress << dec;
-    root["Destination Mac Adress"] = macAdress.str();
+    root["Ethernet Destination Mac Adress"] = macAdress.str();
     macAdress.str("");
-
-//    cout << "DESTINATION MAC ADRESS: " << hex << setfill('0');
-//    for (int i = 0; i < 6; ++i) {
-//        cout << setw(2) << static_cast<int>(ethernetHeader.destinationMAC[i]);
-//        if (i < 5)
-//            cout << ":";
-//    }
-//    cout << dec << "\n";
 
     //sourceMac printing
     macAdress << hex << setfill('0');
@@ -247,36 +235,24 @@ void parseEthernet(vector<uint8_t> packetData, Json::Value root) {
             macAdress << ":";
     }
     macAdress << dec;
-    root["Source Mac Adress"] = macAdress.str();
+    root["Ethernet Source Mac Adress"] = macAdress.str();
 
-//    cout << "SOURCE MAC ADRESS: " << hex << setfill('0');
-//    for (int i = 0; i < 6; ++i) {
-//        cout << setw(2) << static_cast<int>(ethernetHeader.sourceMAC[i]);
-//        if (i < 5)
-//            cout << ":";
-//    }
-//    cout << dec << "\n";
-
-    //cout << "TYPE: ";
+    //ether type
     ethernetHeader.etherType = ntohs(ethernetHeader.etherType);
     if (ethernetHeader.etherType == 2048){
-        root["Ether Type"] = "IPv4";
-        //cout << "IPv4\n";
+        root["Ethernet Ether Type"] = "IPv4";
 
         //parsing IPv4 from the data vector
         parseIPv4(packetData, root);
     }
     else if (ethernetHeader.etherType == 34525){
-        root["Ether Type"] = "IPv6.....work in progress......";
-        //cout << "IPv6.....work in progress......\n";
+        root["Ethernet Ether Type"] = "IPv6.....work in progress......";
     }
     else if (ethernetHeader.etherType == 2054){
-        root["Ether Type"] = "ITS A TRAP!!! Got it? TRAP from ARP. No? Oke fine its ARP and also......work in progress....";
-        //cout << "ITS A TRAP!!! Got it? TRAP from ARP. No? Oke fine its ARP and also......work in progress....\n";
+        root["Ethernet Ether Type"] = "ITS A TRAP!!! Got it? TRAP from ARP. No? Oke fine its ARP and also......work in progress....";
     }
     else{
-        root["Ether Type"] = "I apologise but we're not network scientist we only know IPv4, IPv6, and ARP. Most likely this packet is corrupted so ye. Please refer to WireShark if you want a more professional tool :)";
-        //cout << "I apologise but we're not network scientist we only know IPv4, IPv6, and ARP. Most likely this packet is corrupted so ye. Please refer to WireShark if you want a more professional tool :)\n";
+        root["Ethernet Ether Type"] = "I apologise but we're not network scientist we only know IPv4, IPv6, and ARP. Most likely this packet is corrupted so ye. Please refer to WireShark if you want a more professional tool :)";
     }
 
 }
@@ -289,36 +265,29 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
     //version and internet header length (ihl)
     uint8_t version = (ipHeader.versionIHL >> 4) & 0x0F;
     root["IP Version"] = to_string(static_cast<unsigned int>(version));
-    //cout << "VERSION: " << static_cast<unsigned int>(version) << "\n";
-
     uint8_t ihl = (ipHeader.versionIHL & 0x0F) * 4;
-    root["Internet Header Length(IHL)"] = to_string(static_cast<unsigned int>(ihl));
-    //cout << "INTERNET HEADER LENGTH(IHL): " << static_cast<unsigned int>(ihl) <<"\n";
+    root["IP Internet Header Length(IHL)"] = to_string(static_cast<unsigned int>(ihl));
+
+    //deleting ip header from data vector using ihl
     packetData.erase(packetData.begin(), packetData.begin() + static_cast<unsigned int>(ihl));
 
     //type of service and Differentiated Service Code Point(DSCP)
-    //cout << "TYPE OF SERVICE: ";
     uint8_t dscp = (ipHeader.typeOfService >> 2) & 0x3F;
     if (static_cast<unsigned int>(dscp) == 0)
-        root["Type of Service"] = "Default";
-        //cout << "Default\n";
+        root["IP Type of Service"] = "Default";
     else if (static_cast<unsigned int>(dscp) == 46)
-        root["Type of Service"] = "Expedited Forwarding";
-        //cout << "Expedited Forwarding\n";
+        root["IP Type of Service"] = "Expedited Forwarding";
     else if (dscp == 0x08 or dscp == 0x0C or dscp == 0x10 or dscp == 0x10 or dscp == 0x1C or dscp == 0x20 or dscp == 0x28 or dscp == 0x2C or dscp == 0x30 or dscp == 0x38 or dscp == 0x3C or dscp == 0x40)
-        root["Type of Service"] = "Assured Forwarding";
-        //cout << "Assured Forwarding\n";
-    else root["Type of Service"] = "Unknown"; //cout << "Unknown\n";
+        root["IP Type of Service"] = "Assured Forwarding";
+    else root["IP Type of Service"] = "Unknown";
 
     //total length
     ipHeader.totalLength = ntohs(ipHeader.totalLength);
-    root["Total Length"] = to_string(ipHeader.totalLength) + " bytes";
-    //cout << "TOTAL LENGTH: " << ipHeader.totalLength << " bytes\n";
+    root["IP Total Length"] = to_string(ipHeader.totalLength) + " bytes";
 
     //identification field
     ipHeader.identification = ntohs(ipHeader.identification);
-    root["Identification"] = to_string(ipHeader.identification);
-    //cout << "IDENTIFICATION: " << ipHeader.identification << "\n";
+    root["IP Identification"] = to_string(ipHeader.identification);
 
     //flags and fragment offset
     ipHeader.flagsFragmentOffset = ntohs(ipHeader.flagsFragmentOffset);
@@ -327,56 +296,40 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
     bool isDFSet = (flag & 0x2) != 0;
     bool isMFSet = (flag & 0x4) != 0;
 
-    //cout << "FLAG: ";
     if (isDFSet)
         root["IP Flag"] = "Don't Fragment (DF)";
-        //cout << "Don't Fragment (DF)\n";
     else if (isMFSet)
         root["IP Flag"] = "More Fragments (MF)";
-        //cout << "More Fragments (MF)\n";
     else if (flag == 0)
         root["IP Flag"] = "Reserved";
-        //cout << "Reserved\n";
-    else root["IP Flag"] = "Unknown"; //cout << "Unknown\n";
-    root["Fragment Offset"] = to_string(fragmentOffset);
-    //cout << "FRAGMENT OFFSET: " << fragmentOffset << "\n";
+    else root["IP Flag"] = "Unknown";
+    root["IP Fragment Offset"] = to_string(fragmentOffset);
 
     //time to live
-    root["Time To Live"] = to_string(static_cast<int>(ipHeader.timeToLive));
-    //cout << "TIME TO LIVE: " << static_cast<int>(ipHeader.timeToLive) << "\n";
+    root["IP Time To Live"] = to_string(static_cast<int>(ipHeader.timeToLive));
 
     //protocol
-    //cout << "PROTOCOL: ";
     if(static_cast<int>(ipHeader.protocol) == 1)
         root["IP Protocol"] = "ICMP //TO DO//";
-        //cout << "ICMP //TO DO//\n";
     else if (static_cast<int>(ipHeader.protocol) == 6)
-        root["IP Protocol"] = "TCP //TO DO//";
-        //cout << "TCP //TO DO//\n";
+        root["IP Protocol"] = "TCP";
     else if (static_cast<int>(ipHeader.protocol) == 17)
         root["IP Protocol"] = "UDP //TO DO//";
-        //cout << "UDP //TO DO//\n";
     else if (static_cast<int>(ipHeader.protocol) == 41)//TO DISCUSS!!!
         root["IP Protocol"] = "IPv6 //TO DO//";
-        //cout << "IPv6?? //TO DO//\n";
     else if (static_cast<int>(ipHeader.protocol) == 50)
         root["IP Protocol"] = "ESP //TO DO//";
-        //cout << "ESP //TO DO//\n";
     else if (static_cast<int>(ipHeader.protocol) == 51)
         root["IP Protocol"] = "AH //TO DO//";
-        //cout << "AH //TO DO//\n";
     else if (static_cast<int>(ipHeader.protocol) == 89)
         root["IP Protocol"] = "OSPF //TO DO//";
-        //cout << "OSPF //TO DO//\n";
     else if (static_cast<int>(ipHeader.protocol) == 132)
         root["IP Protocol"] = "SCTP //TO DO//";
-        //cout << "SCTP //TO DO//\n";
 
     //checksum
     stringstream checksum;
     checksum << "0x" << hex << ipHeader.headerChecksum;
     root["IP Checksum"] = checksum.str();
-    //cout << "CHECKSUM: 0x" << hex << ipHeader.headerChecksum << "\n";
 
     //source IP
     stringstream IP;
@@ -388,11 +341,8 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
 
     IP << dec << static_cast<int>(octet1) << "." << static_cast<int>(octet2) << "."
               << static_cast<int>(octet3) << "." << static_cast<int>(octet4);
-    root["Source IP"] = IP.str();
+    root["IP Source IP"] = IP.str();
     IP.str("");
-//    cout << "SOURCE IP: "
-//         << dec << static_cast<int>(octet1) << "." << static_cast<int>(octet2) << "."
-//         << static_cast<int>(octet3) << "." << static_cast<int>(octet4) << "\n";
 
     //destination IP
     ipHeader.destinationIP = ntohl(ipHeader.destinationIP);
@@ -403,49 +353,40 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
 
     IP << dec << static_cast<int>(octet1) << "." << static_cast<int>(octet2) << "."
               << static_cast<int>(octet3) << "." << static_cast<int>(octet4);
-    root["Destination IP"] = IP.str();
-//    cout << "DESTINATION IP: "
-//         << dec << static_cast<int>(octet1) << "." << static_cast<int>(octet2) << "."
-//         << static_cast<int>(octet3) << "." << static_cast<int>(octet4) << "\n";
-
+    root["IP Destination IP"] = IP.str();
     cout << dec;
-    Json::StreamWriterBuilder writerBuilder;
-    string jsonString = Json::writeString(writerBuilder, root);
-    ofstream outputPacket("D:\\projects\\c++\\miniShark\\backend\\output\\packet" + root["Packet"].asString() + ".json");
-    if (outputPacket.is_open())
-        outputPacket << jsonString;
-    else cout << "operatie esuata!\n";
+
     if(static_cast<int>(ipHeader.protocol) == 1)
         //ICMP
-        parseIPv4ICMP(packetData);
+        parseIPv4ICMP(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 6)
         //TCP
-        parseIPv4TCP(packetData);
+        parseIPv4TCP(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 17)
         //UDP
-        parseIPv4UDP(packetData);
+        parseIPv4UDP(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 41)//TO DISCUSS!!!
         //IPv6
-        parseIPv4IPv6(packetData);
+        parseIPv4IPv6(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 50)
         //ESP
-        parseIPv4ESP(packetData);
+        parseIPv4ESP(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 51)
         //AH
-        parseIPv4AH(packetData);
+        parseIPv4AH(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 89)
         //OSPF
-        parseIPv4OSPF(packetData);
+        parseIPv4OSPF(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 132)
         //SCTP
-        parseIPv4SCTP(packetData);
+        parseIPv4SCTP(packetData, root);
 }
 
-void parseIPv4ICMP(vector<uint8_t> packetData) {
+void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root) {
 
 }
 
-void parseIPv4TCP(vector<uint8_t> packetData) {
+void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root) {
     if (packetData.size() < sizeof(TCPHeader)) {
         cout << "Incomplete TCP header.\n";
         return;
@@ -453,6 +394,7 @@ void parseIPv4TCP(vector<uint8_t> packetData) {
 
     TCPHeader tcpHeader;
     memcpy(&tcpHeader, packetData.data(), sizeof(TCPHeader));
+    packetData.erase(packetData.begin(), packetData.begin() + static_cast<int>(tcpHeader.dataOffset >> 4) * 4);
 
     tcpHeader.sourcePort = ntohs(tcpHeader.sourcePort);
     tcpHeader.destPort = ntohs(tcpHeader.destPort);
@@ -460,34 +402,62 @@ void parseIPv4TCP(vector<uint8_t> packetData) {
     tcpHeader.ackNumber = ntohl(tcpHeader.ackNumber);
     tcpHeader.windowSize = ntohs(tcpHeader.windowSize);
 
-    cout << "Source Port: " << tcpHeader.sourcePort << "\n";
-    cout << "Destination Port: " << tcpHeader.destPort << "\n";
-    cout << "Sequence Number: " << tcpHeader.sequenceNumber << "\n";
-    cout << "Acknowledgement Number: " << tcpHeader.ackNumber << "\n";
-    cout << "Flags: " << bitset<8>(tcpHeader.flags) << "\n";
-    cout << "Window Size: " << tcpHeader.windowSize << "\n";
+    root["TCP Source Port"] = to_string(tcpHeader.sourcePort);
+    root["TCP Destination Port"] = to_string(tcpHeader.destPort);
+    root["TCP Sequence Number"] = to_string(tcpHeader.sequenceNumber);
+    root["TCP Acknowledgement Number"] = to_string(tcpHeader.ackNumber);
+    root["TCP Header Length"] = to_string(static_cast<int>(tcpHeader.dataOffset >> 4) * 4) + " (" + to_string(static_cast<int>(tcpHeader.dataOffset >> 4)) + ")";
+    if ((tcpHeader.flags & 0x02) >> 1)
+        root["TCP Flags"] = "SYN (Synchronize)";
+    else if ((tcpHeader.flags & 0x04) >> 2)
+        root["TCP Flags"] = "RST (Reset)";
+    else if ((tcpHeader.flags & 0x08) >> 3)
+        root["TCP Flags"] = "PSH (Push)";
+    else if ((tcpHeader.flags & 0x10) >> 4)
+        root["TCP Flags"] = "ACK (Acknowledgment)";
+    else if ((tcpHeader.flags & 0x20) >> 5)
+        root["TCP Flags"] = "URG (Urgent)";
+    else root["TCP Flags"] = "Reserved ";
+    stringstream checksum;
+
+    checksum << "0x" << hex << ntohs(tcpHeader.checksum) << dec;
+    root["TCP Checksum"] = checksum.str();
+    root["TCP Urgent Pointer"] = to_string(ntohs(tcpHeader.urgentPointer));
+
+    stringstream data;
+    for (int i = 0; i < packetData.size(); ++i) {
+            data << packetData[i];
+        }
+    root["Packet Data"] = data.str();
+
+    Json::StreamWriterBuilder writerBuilder;
+    string jsonString = Json::writeString(writerBuilder, root);
+    ofstream outputPacket("D:\\projects\\c++\\miniShark\\backend\\output\\packet" + root["Packet Number"].asString() + ".json");
+    if (outputPacket.is_open())
+        outputPacket << jsonString;
+    else cout << "operatie esuata!\n";
 }
 
-void parseIPv4UDP(vector<uint8_t> packetData) {
+void parseIPv4UDP(vector<uint8_t> packetData, Json::Value root) {
 
 }
 
-void parseIPv4IPv6(vector<uint8_t> packetData) {
+void parseIPv4IPv6(vector<uint8_t> packetData, Json::Value root) {
 
 }
 
-void parseIPv4ESP(vector<uint8_t> packetData) {
+void parseIPv4ESP(vector<uint8_t> packetData, Json::Value root) {
 
 }
 
-void parseIPv4AH(vector<uint8_t> packetData) {
+void parseIPv4AH(vector<uint8_t> packetData, Json::Value root) {
 
 }
 
-void parseIPv4OSPF(vector<uint8_t> packetData) {
+void parseIPv4OSPF(vector<uint8_t> packetData, Json::Value root) {
 
 }
 
-void parseIPv4SCTP(vector<uint8_t> packetData) {
+void parseIPv4SCTP(vector<uint8_t> packetData, Json::Value root) {
 
 }
