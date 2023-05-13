@@ -1,0 +1,15 @@
+{
+  "name" : "minishark",
+  "version-string" : "1.0.0",
+  "builtin-baseline" : "ed8fb07a8bd19568c8594c6f1a04955242f82d35",
+  "dependencies" : [ {
+    "name" : "jsoncpp",
+    "version>=" : "1.9.5"
+  }, {
+    "name" : "vcpkg-cmake-config",
+    "version>=" : "2022-02-06#1"
+  }, {
+    "name" : "vcpkg-cmake",
+    "version>=" : "2022-12-22"
+  } ]
+}

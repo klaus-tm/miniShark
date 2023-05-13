@@ -1,0 +1,21 @@
+{
+	"Captured Length" : "66 bytes",
+	"Destination IP" : "85.120.206.130",
+	"Destination Mac Adress" : "a4:53:0e:71:0d:cd",
+	"Ether Type" : "IPv4",
+	"Fragment Offset" : "0",
+	"IP Checksum" : "0x0",
+	"IP Flag" : "Don't Fragment (DF)",
+	"IP Protocol" : "TCP //TO DO//",
+	"IP Version" : "4",
+	"Identification" : "20127",
+	"Internet Header Length(IHL)" : "20",
+	"Original Length" : "66 bytes",
+	"Packet" : "1",
+	"Source IP" : "10.231.10.68",
+	"Source Mac Adress" : "d4:3b:04:bb:35:37",
+	"Time To Live" : "128",
+	"Timestamp" : "1683789153.166449",
+	"Total Length" : "52 bytes",
+	"Type of Service" : "Default"
+}

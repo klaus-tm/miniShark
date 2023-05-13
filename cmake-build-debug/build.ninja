@@ -47,11 +47,12 @@ cmake_ninja_workdir = D$:/projects/c++/miniShark/cmake-build-debug/
 #############################################
 # Order-only phony target for miniShark
 
-build cmake_object_order_depends_target_miniShark: phony || CMakeFiles/miniShark.dir
+build cmake_object_order_depends_target_miniShark: phony || cmake_object_order_depends_target_jsoncpp_lib
 
 build CMakeFiles/miniShark.dir/backend/PcapRead.cpp.obj: CXX_COMPILER__miniShark_Debug D$:/projects/c++/miniShark/backend/PcapRead.cpp || cmake_object_order_depends_target_miniShark
   DEP_FILE = CMakeFiles\miniShark.dir\backend\PcapRead.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always -std=gnu++14
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
   OBJECT_DIR = CMakeFiles\miniShark.dir
   OBJECT_FILE_DIR = CMakeFiles\miniShark.dir\backend
 
@@ -61,16 +62,16 @@ build CMakeFiles/miniShark.dir/backend/PcapRead.cpp.obj: CXX_COMPILER__miniShark
 
 
 #############################################
-# Link the executable miniShark.exe
+# Link the executable bin\miniShark.exe
 
-build miniShark.exe: CXX_EXECUTABLE_LINKER__miniShark_Debug CMakeFiles/miniShark.dir/backend/PcapRead.cpp.obj
+build bin/miniShark.exe: CXX_EXECUTABLE_LINKER__miniShark_Debug CMakeFiles/miniShark.dir/backend/PcapRead.cpp.obj | lib/libjsoncpp.dll.a || bin/libjsoncpp.dll
   FLAGS = -g
-  LINK_LIBRARIES = -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = -lws2_32  lib/libjsoncpp.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\miniShark.dir
-  POST_BUILD = cd .
+  POST_BUILD = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/cerce/.clion-vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/projects/c++/miniShark/cmake-build-debug/bin/miniShark.exe -installedDir C:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/debug/bin -OutVariable out"
   PRE_LINK = cd .
-  TARGET_FILE = miniShark.exe
-  TARGET_IMPLIB = libminiShark.dll.a
+  TARGET_FILE = bin\miniShark.exe
+  TARGET_IMPLIB = lib\libminiShark.dll.a
   TARGET_PDB = miniShark.exe.dbg
 
 
@@ -96,10 +97,1196 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/projects/c++/miniShark/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for Experimental
+
+build extern/jsoncpp/Experimental: phony extern/jsoncpp/CMakeFiles/Experimental
+
+
+#############################################
+# Utility command for Nightly
+
+build extern/jsoncpp/Nightly: phony extern/jsoncpp/CMakeFiles/Nightly
+
+
+#############################################
+# Utility command for Continuous
+
+build extern/jsoncpp/Continuous: phony extern/jsoncpp/CMakeFiles/Continuous
+
+
+#############################################
+# Utility command for NightlyMemoryCheck
+
+build extern/jsoncpp/NightlyMemoryCheck: phony extern/jsoncpp/CMakeFiles/NightlyMemoryCheck
+
+
+#############################################
+# Utility command for NightlyStart
+
+build extern/jsoncpp/NightlyStart: phony extern/jsoncpp/CMakeFiles/NightlyStart
+
+
+#############################################
+# Utility command for NightlyUpdate
+
+build extern/jsoncpp/NightlyUpdate: phony extern/jsoncpp/CMakeFiles/NightlyUpdate
+
+
+#############################################
+# Utility command for NightlyConfigure
+
+build extern/jsoncpp/NightlyConfigure: phony extern/jsoncpp/CMakeFiles/NightlyConfigure
+
+
+#############################################
+# Utility command for NightlyBuild
+
+build extern/jsoncpp/NightlyBuild: phony extern/jsoncpp/CMakeFiles/NightlyBuild
+
+
+#############################################
+# Utility command for NightlyTest
+
+build extern/jsoncpp/NightlyTest: phony extern/jsoncpp/CMakeFiles/NightlyTest
+
+
+#############################################
+# Utility command for NightlyCoverage
+
+build extern/jsoncpp/NightlyCoverage: phony extern/jsoncpp/CMakeFiles/NightlyCoverage
+
+
+#############################################
+# Utility command for NightlyMemCheck
+
+build extern/jsoncpp/NightlyMemCheck: phony extern/jsoncpp/CMakeFiles/NightlyMemCheck
+
+
+#############################################
+# Utility command for NightlySubmit
+
+build extern/jsoncpp/NightlySubmit: phony extern/jsoncpp/CMakeFiles/NightlySubmit
+
+
+#############################################
+# Utility command for ExperimentalStart
+
+build extern/jsoncpp/ExperimentalStart: phony extern/jsoncpp/CMakeFiles/ExperimentalStart
+
+
+#############################################
+# Utility command for ExperimentalUpdate
+
+build extern/jsoncpp/ExperimentalUpdate: phony extern/jsoncpp/CMakeFiles/ExperimentalUpdate
+
+
+#############################################
+# Utility command for ExperimentalConfigure
+
+build extern/jsoncpp/ExperimentalConfigure: phony extern/jsoncpp/CMakeFiles/ExperimentalConfigure
+
+
+#############################################
+# Utility command for ExperimentalBuild
+
+build extern/jsoncpp/ExperimentalBuild: phony extern/jsoncpp/CMakeFiles/ExperimentalBuild
+
+
+#############################################
+# Utility command for ExperimentalTest
+
+build extern/jsoncpp/ExperimentalTest: phony extern/jsoncpp/CMakeFiles/ExperimentalTest
+
+
+#############################################
+# Utility command for ExperimentalCoverage
+
+build extern/jsoncpp/ExperimentalCoverage: phony extern/jsoncpp/CMakeFiles/ExperimentalCoverage
+
+
+#############################################
+# Utility command for ExperimentalMemCheck
+
+build extern/jsoncpp/ExperimentalMemCheck: phony extern/jsoncpp/CMakeFiles/ExperimentalMemCheck
+
+
+#############################################
+# Utility command for ExperimentalSubmit
+
+build extern/jsoncpp/ExperimentalSubmit: phony extern/jsoncpp/CMakeFiles/ExperimentalSubmit
+
+
+#############################################
+# Utility command for ContinuousStart
+
+build extern/jsoncpp/ContinuousStart: phony extern/jsoncpp/CMakeFiles/ContinuousStart
+
+
+#############################################
+# Utility command for ContinuousUpdate
+
+build extern/jsoncpp/ContinuousUpdate: phony extern/jsoncpp/CMakeFiles/ContinuousUpdate
+
+
+#############################################
+# Utility command for ContinuousConfigure
+
+build extern/jsoncpp/ContinuousConfigure: phony extern/jsoncpp/CMakeFiles/ContinuousConfigure
+
+
+#############################################
+# Utility command for ContinuousBuild
+
+build extern/jsoncpp/ContinuousBuild: phony extern/jsoncpp/CMakeFiles/ContinuousBuild
+
+
+#############################################
+# Utility command for ContinuousTest
+
+build extern/jsoncpp/ContinuousTest: phony extern/jsoncpp/CMakeFiles/ContinuousTest
+
+
+#############################################
+# Utility command for ContinuousCoverage
+
+build extern/jsoncpp/ContinuousCoverage: phony extern/jsoncpp/CMakeFiles/ContinuousCoverage
+
+
+#############################################
+# Utility command for ContinuousMemCheck
+
+build extern/jsoncpp/ContinuousMemCheck: phony extern/jsoncpp/CMakeFiles/ContinuousMemCheck
+
+
+#############################################
+# Utility command for ContinuousSubmit
+
+build extern/jsoncpp/ContinuousSubmit: phony extern/jsoncpp/CMakeFiles/ContinuousSubmit
+
+
+#############################################
+# Utility command for edit_cache
+
+build extern/jsoncpp/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build extern/jsoncpp/edit_cache: phony extern/jsoncpp/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build extern/jsoncpp/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SD:\projects\c++\miniShark -BD:\projects\c++\miniShark\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/rebuild_cache: phony extern/jsoncpp/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build extern/jsoncpp/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build extern/jsoncpp/CMakeFiles/install.util: CUSTOM_COMMAND extern/jsoncpp/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/install: phony extern/jsoncpp/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build extern/jsoncpp/CMakeFiles/install/local.util: CUSTOM_COMMAND extern/jsoncpp/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/install/local: phony extern/jsoncpp/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build extern/jsoncpp/CMakeFiles/install/strip.util: CUSTOM_COMMAND extern/jsoncpp/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/install/strip: phony extern/jsoncpp/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\Experimental
+
+build extern/jsoncpp/CMakeFiles/Experimental | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/Experimental: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D Experimental"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\Nightly
+
+build extern/jsoncpp/CMakeFiles/Nightly | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/Nightly: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D Nightly"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\Continuous
+
+build extern/jsoncpp/CMakeFiles/Continuous | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/Continuous: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D Continuous"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlyMemoryCheck
+
+build extern/jsoncpp/CMakeFiles/NightlyMemoryCheck | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlyMemoryCheck: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlyMemoryCheck"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlyStart
+
+build extern/jsoncpp/CMakeFiles/NightlyStart | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlyStart: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlyStart"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlyUpdate
+
+build extern/jsoncpp/CMakeFiles/NightlyUpdate | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlyUpdate: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlyUpdate"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlyConfigure
+
+build extern/jsoncpp/CMakeFiles/NightlyConfigure | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlyConfigure: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlyConfigure"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlyBuild
+
+build extern/jsoncpp/CMakeFiles/NightlyBuild | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlyBuild: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlyBuild"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlyTest
+
+build extern/jsoncpp/CMakeFiles/NightlyTest | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlyTest: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlyTest"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlyCoverage
+
+build extern/jsoncpp/CMakeFiles/NightlyCoverage | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlyCoverage: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlyCoverage"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlyMemCheck
+
+build extern/jsoncpp/CMakeFiles/NightlyMemCheck | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlyMemCheck: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlyMemCheck"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\NightlySubmit
+
+build extern/jsoncpp/CMakeFiles/NightlySubmit | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/NightlySubmit: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D NightlySubmit"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ExperimentalStart
+
+build extern/jsoncpp/CMakeFiles/ExperimentalStart | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ExperimentalStart: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ExperimentalStart"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ExperimentalUpdate
+
+build extern/jsoncpp/CMakeFiles/ExperimentalUpdate | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ExperimentalUpdate: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ExperimentalUpdate"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ExperimentalConfigure
+
+build extern/jsoncpp/CMakeFiles/ExperimentalConfigure | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ExperimentalConfigure: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ExperimentalConfigure"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ExperimentalBuild
+
+build extern/jsoncpp/CMakeFiles/ExperimentalBuild | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ExperimentalBuild: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ExperimentalBuild"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ExperimentalTest
+
+build extern/jsoncpp/CMakeFiles/ExperimentalTest | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ExperimentalTest: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ExperimentalTest"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ExperimentalCoverage
+
+build extern/jsoncpp/CMakeFiles/ExperimentalCoverage | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ExperimentalCoverage: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ExperimentalCoverage"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ExperimentalMemCheck
+
+build extern/jsoncpp/CMakeFiles/ExperimentalMemCheck | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ExperimentalMemCheck: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ExperimentalMemCheck"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ExperimentalSubmit
+
+build extern/jsoncpp/CMakeFiles/ExperimentalSubmit | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ExperimentalSubmit: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ExperimentalSubmit"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ContinuousStart
+
+build extern/jsoncpp/CMakeFiles/ContinuousStart | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ContinuousStart: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ContinuousStart"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ContinuousUpdate
+
+build extern/jsoncpp/CMakeFiles/ContinuousUpdate | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ContinuousUpdate: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ContinuousUpdate"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ContinuousConfigure
+
+build extern/jsoncpp/CMakeFiles/ContinuousConfigure | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ContinuousConfigure: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ContinuousConfigure"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ContinuousBuild
+
+build extern/jsoncpp/CMakeFiles/ContinuousBuild | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ContinuousBuild: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ContinuousBuild"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ContinuousTest
+
+build extern/jsoncpp/CMakeFiles/ContinuousTest | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ContinuousTest: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ContinuousTest"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ContinuousCoverage
+
+build extern/jsoncpp/CMakeFiles/ContinuousCoverage | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ContinuousCoverage: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ContinuousCoverage"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ContinuousMemCheck
+
+build extern/jsoncpp/CMakeFiles/ContinuousMemCheck | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ContinuousMemCheck: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ContinuousMemCheck"
+  pool = console
+
+
+#############################################
+# Custom command for extern\jsoncpp\CMakeFiles\ContinuousSubmit
+
+build extern/jsoncpp/CMakeFiles/ContinuousSubmit | ${cmake_ninja_workdir}extern/jsoncpp/CMakeFiles/ContinuousSubmit: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\ctest.exe -D ContinuousSubmit"
+  pool = console
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/projects/c++/miniShark/extern/jsoncpp/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build extern/jsoncpp/src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build extern/jsoncpp/src/edit_cache: phony extern/jsoncpp/src/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build extern/jsoncpp/src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SD:\projects\c++\miniShark -BD:\projects\c++\miniShark\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/rebuild_cache: phony extern/jsoncpp/src/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build extern/jsoncpp/src/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build extern/jsoncpp/src/CMakeFiles/install.util: CUSTOM_COMMAND extern/jsoncpp/src/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/install: phony extern/jsoncpp/src/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build extern/jsoncpp/src/CMakeFiles/install/local.util: CUSTOM_COMMAND extern/jsoncpp/src/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/install/local: phony extern/jsoncpp/src/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build extern/jsoncpp/src/CMakeFiles/install/strip.util: CUSTOM_COMMAND extern/jsoncpp/src/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/install/strip: phony extern/jsoncpp/src/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/projects/c++/miniShark/extern/jsoncpp/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target jsoncpp_lib
+
+
+#############################################
+# Order-only phony target for jsoncpp_lib
+
+build cmake_object_order_depends_target_jsoncpp_lib: phony || extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_lib.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_lib.dir/json_reader.cpp.obj: CXX_COMPILER__jsoncpp_lib_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_reader.cpp || cmake_object_order_depends_target_jsoncpp_lib
+  DEFINES = -DJSON_DLL_BUILD -Djsoncpp_lib_EXPORTS
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir\json_reader.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_lib.dir/json_value.cpp.obj: CXX_COMPILER__jsoncpp_lib_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_value.cpp || cmake_object_order_depends_target_jsoncpp_lib
+  DEFINES = -DJSON_DLL_BUILD -Djsoncpp_lib_EXPORTS
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir\json_value.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_lib.dir/json_writer.cpp.obj: CXX_COMPILER__jsoncpp_lib_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_writer.cpp || cmake_object_order_depends_target_jsoncpp_lib
+  DEFINES = -DJSON_DLL_BUILD -Djsoncpp_lib_EXPORTS
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir\json_writer.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir
+
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target jsoncpp_lib
+
+
+#############################################
+# Link the shared library bin\libjsoncpp.dll
+
+build bin/libjsoncpp.dll lib/libjsoncpp.dll.a: CXX_SHARED_LIBRARY_LINKER__jsoncpp_lib_Debug extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_lib.dir/json_reader.cpp.obj extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_lib.dir/json_value.cpp.obj extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_lib.dir/json_writer.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_lib.dir
+  POST_BUILD = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\lib_json && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/cerce/.clion-vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/projects/c++/miniShark/cmake-build-debug/bin/libjsoncpp.dll -installedDir C:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/debug/bin -OutVariable out"
+  PRE_LINK = cd .
+  RESTAT = 1
+  TARGET_FILE = bin\libjsoncpp.dll
+  TARGET_IMPLIB = lib\libjsoncpp.dll.a
+  TARGET_PDB = jsoncpp.dll.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target jsoncpp_static
+
+
+#############################################
+# Order-only phony target for jsoncpp_static
+
+build cmake_object_order_depends_target_jsoncpp_static: phony || extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_static.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_static.dir/json_reader.cpp.obj: CXX_COMPILER__jsoncpp_static_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_reader.cpp || cmake_object_order_depends_target_jsoncpp_static
+  DEFINES = -DJSON_DLL_BUILD
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir\json_reader.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_static.dir/json_value.cpp.obj: CXX_COMPILER__jsoncpp_static_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_value.cpp || cmake_object_order_depends_target_jsoncpp_static
+  DEFINES = -DJSON_DLL_BUILD
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir\json_value.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_static.dir/json_writer.cpp.obj: CXX_COMPILER__jsoncpp_static_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_writer.cpp || cmake_object_order_depends_target_jsoncpp_static
+  DEFINES = -DJSON_DLL_BUILD
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir\json_writer.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target jsoncpp_static
+
+
+#############################################
+# Link the static library lib\libjsoncpp.a
+
+build lib/libjsoncpp.a: CXX_STATIC_LIBRARY_LINKER__jsoncpp_static_Debug extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_static.dir/json_reader.cpp.obj extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_static.dir/json_value.cpp.obj extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_static.dir/json_writer.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_static.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = lib\libjsoncpp.a
+  TARGET_PDB = jsoncpp.a.dbg
+
+# =============================================================================
+# Object build statements for OBJECT_LIBRARY target jsoncpp_object
+
+
+#############################################
+# Order-only phony target for jsoncpp_object
+
+build cmake_object_order_depends_target_jsoncpp_object: phony || extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/json_reader.cpp.obj: CXX_COMPILER__jsoncpp_object_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_reader.cpp || cmake_object_order_depends_target_jsoncpp_object
+  DEFINES = -DJSON_DLL_BUILD
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir\json_reader.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/json_value.cpp.obj: CXX_COMPILER__jsoncpp_object_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_value.cpp || cmake_object_order_depends_target_jsoncpp_object
+  DEFINES = -DJSON_DLL_BUILD
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir\json_value.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/json_writer.cpp.obj: CXX_COMPILER__jsoncpp_object_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/json_writer.cpp || cmake_object_order_depends_target_jsoncpp_object
+  DEFINES = -DJSON_DLL_BUILD
+  DEP_FILE = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir\json_writer.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -Werror=strict-aliasing -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\lib_json\CMakeFiles\jsoncpp_object.dir
+
+
+
+#############################################
+# Object library jsoncpp_object
+
+build extern/jsoncpp/src/lib_json/jsoncpp_object: phony extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/json_reader.cpp.obj extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/json_value.cpp.obj extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/json_writer.cpp.obj
+
+
+#############################################
+# Utility command for edit_cache
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build extern/jsoncpp/src/lib_json/edit_cache: phony extern/jsoncpp/src/lib_json/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SD:\projects\c++\miniShark -BD:\projects\c++\miniShark\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/lib_json/rebuild_cache: phony extern/jsoncpp/src/lib_json/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build extern/jsoncpp/src/lib_json/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/install.util: CUSTOM_COMMAND extern/jsoncpp/src/lib_json/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/lib_json/install: phony extern/jsoncpp/src/lib_json/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/install/local.util: CUSTOM_COMMAND extern/jsoncpp/src/lib_json/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/lib_json/install/local: phony extern/jsoncpp/src/lib_json/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build extern/jsoncpp/src/lib_json/CMakeFiles/install/strip.util: CUSTOM_COMMAND extern/jsoncpp/src/lib_json/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/lib_json/install/strip: phony extern/jsoncpp/src/lib_json/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/projects/c++/miniShark/extern/jsoncpp/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target jsontestrunner_exe
+
+
+#############################################
+# Order-only phony target for jsontestrunner_exe
+
+build cmake_object_order_depends_target_jsontestrunner_exe: phony || cmake_object_order_depends_target_jsoncpp_lib
+
+build extern/jsoncpp/src/jsontestrunner/CMakeFiles/jsontestrunner_exe.dir/main.cpp.obj: CXX_COMPILER__jsontestrunner_exe_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/jsontestrunner/main.cpp || cmake_object_order_depends_target_jsontestrunner_exe
+  DEFINES = -DJSON_DLL
+  DEP_FILE = extern\jsoncpp\src\jsontestrunner\CMakeFiles\jsontestrunner_exe.dir\main.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\jsontestrunner\CMakeFiles\jsontestrunner_exe.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\jsontestrunner\CMakeFiles\jsontestrunner_exe.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target jsontestrunner_exe
+
+
+#############################################
+# Link the executable bin\jsontestrunner_exe.exe
+
+build bin/jsontestrunner_exe.exe: CXX_EXECUTABLE_LINKER__jsontestrunner_exe_Debug extern/jsoncpp/src/jsontestrunner/CMakeFiles/jsontestrunner_exe.dir/main.cpp.obj | lib/libjsoncpp.dll.a || bin/libjsoncpp.dll
+  FLAGS = -g
+  LINK_LIBRARIES = lib/libjsoncpp.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = extern\jsoncpp\src\jsontestrunner\CMakeFiles\jsontestrunner_exe.dir
+  POST_BUILD = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\jsontestrunner && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/cerce/.clion-vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/projects/c++/miniShark/cmake-build-debug/bin/jsontestrunner_exe.exe -installedDir C:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/debug/bin -OutVariable out"
+  PRE_LINK = cd .
+  TARGET_FILE = bin\jsontestrunner_exe.exe
+  TARGET_IMPLIB = lib\libjsontestrunner_exe.dll.a
+  TARGET_PDB = jsontestrunner_exe.exe.dbg
+
+
+#############################################
+# Utility command for jsoncpp_readerwriter_tests
+
+build extern/jsoncpp/src/jsontestrunner/jsoncpp_readerwriter_tests: phony extern/jsoncpp/src/jsontestrunner/CMakeFiles/jsoncpp_readerwriter_tests bin/jsoncpp_test.exe bin/jsontestrunner_exe.exe
+
+
+#############################################
+# Utility command for jsoncpp_check
+
+build extern/jsoncpp/src/jsontestrunner/jsoncpp_check: phony extern/jsoncpp/src/jsontestrunner/CMakeFiles/jsoncpp_check extern/jsoncpp/src/jsontestrunner/jsoncpp_readerwriter_tests
+
+
+#############################################
+# Utility command for edit_cache
+
+build extern/jsoncpp/src/jsontestrunner/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\jsontestrunner && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build extern/jsoncpp/src/jsontestrunner/edit_cache: phony extern/jsoncpp/src/jsontestrunner/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build extern/jsoncpp/src/jsontestrunner/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\jsontestrunner && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SD:\projects\c++\miniShark -BD:\projects\c++\miniShark\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/jsontestrunner/rebuild_cache: phony extern/jsoncpp/src/jsontestrunner/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build extern/jsoncpp/src/jsontestrunner/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build extern/jsoncpp/src/jsontestrunner/CMakeFiles/install.util: CUSTOM_COMMAND extern/jsoncpp/src/jsontestrunner/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\jsontestrunner && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/jsontestrunner/install: phony extern/jsoncpp/src/jsontestrunner/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build extern/jsoncpp/src/jsontestrunner/CMakeFiles/install/local.util: CUSTOM_COMMAND extern/jsoncpp/src/jsontestrunner/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\jsontestrunner && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/jsontestrunner/install/local: phony extern/jsoncpp/src/jsontestrunner/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build extern/jsoncpp/src/jsontestrunner/CMakeFiles/install/strip.util: CUSTOM_COMMAND extern/jsoncpp/src/jsontestrunner/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\jsontestrunner && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/jsontestrunner/install/strip: phony extern/jsoncpp/src/jsontestrunner/CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for extern\jsoncpp\src\jsontestrunner\CMakeFiles\jsoncpp_readerwriter_tests
+
+build extern/jsoncpp/src/jsontestrunner/CMakeFiles/jsoncpp_readerwriter_tests | ${cmake_ninja_workdir}extern/jsoncpp/src/jsontestrunner/CMakeFiles/jsoncpp_readerwriter_tests: CUSTOM_COMMAND bin/jsontestrunner_exe.exe bin/jsoncpp_test.exe || bin/jsoncpp_test.exe bin/jsontestrunner_exe.exe bin/libjsoncpp.dll
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\jsontestrunner && C:\msys64\mingw64\bin\python3.9.exe -B D:/projects/c++/miniShark/extern/jsoncpp/src/jsontestrunner/../../test/runjsontests.py D:/projects/c++/miniShark/cmake-build-debug/bin/jsontestrunner_exe.exe D:/projects/c++/miniShark/extern/jsoncpp/src/jsontestrunner/../../test/data"
+
+
+#############################################
+# Phony custom command for extern\jsoncpp\src\jsontestrunner\CMakeFiles\jsoncpp_check
+
+build extern/jsoncpp/src/jsontestrunner/CMakeFiles/jsoncpp_check | ${cmake_ninja_workdir}extern/jsoncpp/src/jsontestrunner/CMakeFiles/jsoncpp_check: phony || bin/jsoncpp_test.exe bin/jsontestrunner_exe.exe bin/libjsoncpp.dll extern/jsoncpp/src/jsontestrunner/jsoncpp_readerwriter_tests
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/projects/c++/miniShark/extern/jsoncpp/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target jsoncpp_test
+
+
+#############################################
+# Order-only phony target for jsoncpp_test
+
+build cmake_object_order_depends_target_jsoncpp_test: phony || cmake_object_order_depends_target_jsoncpp_lib
+
+build extern/jsoncpp/src/test_lib_json/CMakeFiles/jsoncpp_test.dir/jsontest.cpp.obj: CXX_COMPILER__jsoncpp_test_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/test_lib_json/jsontest.cpp || cmake_object_order_depends_target_jsoncpp_test
+  DEFINES = -DJSON_DLL
+  DEP_FILE = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir\jsontest.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir
+
+build extern/jsoncpp/src/test_lib_json/CMakeFiles/jsoncpp_test.dir/fuzz.cpp.obj: CXX_COMPILER__jsoncpp_test_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/test_lib_json/fuzz.cpp || cmake_object_order_depends_target_jsoncpp_test
+  DEFINES = -DJSON_DLL
+  DEP_FILE = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir\fuzz.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir
+
+build extern/jsoncpp/src/test_lib_json/CMakeFiles/jsoncpp_test.dir/main.cpp.obj: CXX_COMPILER__jsoncpp_test_Debug D$:/projects/c++/miniShark/extern/jsoncpp/src/test_lib_json/main.cpp || cmake_object_order_depends_target_jsoncpp_test
+  DEFINES = -DJSON_DLL
+  DEP_FILE = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir\main.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always -Wall -Wconversion -Wshadow -Wextra -Wpedantic -std=c++11
+  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  OBJECT_DIR = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir
+  OBJECT_FILE_DIR = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target jsoncpp_test
+
+
+#############################################
+# Link the executable bin\jsoncpp_test.exe
+
+build bin/jsoncpp_test.exe: CXX_EXECUTABLE_LINKER__jsoncpp_test_Debug extern/jsoncpp/src/test_lib_json/CMakeFiles/jsoncpp_test.dir/jsontest.cpp.obj extern/jsoncpp/src/test_lib_json/CMakeFiles/jsoncpp_test.dir/fuzz.cpp.obj extern/jsoncpp/src/test_lib_json/CMakeFiles/jsoncpp_test.dir/main.cpp.obj | lib/libjsoncpp.dll.a || bin/libjsoncpp.dll
+  FLAGS = -g
+  LINK_LIBRARIES = lib/libjsoncpp.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = extern\jsoncpp\src\test_lib_json\CMakeFiles\jsoncpp_test.dir
+  POST_BUILD = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\test_lib_json && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/cerce/.clion-vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/projects/c++/miniShark/cmake-build-debug/bin/jsoncpp_test.exe -installedDir C:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/debug/bin -OutVariable out && cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\test_lib_json && D:\projects\c++\miniShark\cmake-build-debug\bin\jsoncpp_test.exe"
+  PRE_LINK = cd .
+  TARGET_FILE = bin\jsoncpp_test.exe
+  TARGET_IMPLIB = lib\libjsoncpp_test.dll.a
+  TARGET_PDB = jsoncpp_test.exe.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build extern/jsoncpp/src/test_lib_json/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\test_lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build extern/jsoncpp/src/test_lib_json/edit_cache: phony extern/jsoncpp/src/test_lib_json/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build extern/jsoncpp/src/test_lib_json/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\test_lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SD:\projects\c++\miniShark -BD:\projects\c++\miniShark\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/test_lib_json/rebuild_cache: phony extern/jsoncpp/src/test_lib_json/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build extern/jsoncpp/src/test_lib_json/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build extern/jsoncpp/src/test_lib_json/CMakeFiles/install.util: CUSTOM_COMMAND extern/jsoncpp/src/test_lib_json/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\test_lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/test_lib_json/install: phony extern/jsoncpp/src/test_lib_json/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build extern/jsoncpp/src/test_lib_json/CMakeFiles/install/local.util: CUSTOM_COMMAND extern/jsoncpp/src/test_lib_json/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\test_lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/test_lib_json/install/local: phony extern/jsoncpp/src/test_lib_json/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build extern/jsoncpp/src/test_lib_json/CMakeFiles/install/strip.util: CUSTOM_COMMAND extern/jsoncpp/src/test_lib_json/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\src\test_lib_json && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/src/test_lib_json/install/strip: phony extern/jsoncpp/src/test_lib_json/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# D:/projects/c++/miniShark/extern/jsoncpp/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build extern/jsoncpp/include/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\include && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build extern/jsoncpp/include/edit_cache: phony extern/jsoncpp/include/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build extern/jsoncpp/include/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\include && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SD:\projects\c++\miniShark -BD:\projects\c++\miniShark\cmake-build-debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/include/rebuild_cache: phony extern/jsoncpp/include/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build extern/jsoncpp/include/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build extern/jsoncpp/include/CMakeFiles/install.util: CUSTOM_COMMAND extern/jsoncpp/include/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\include && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/include/install: phony extern/jsoncpp/include/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build extern/jsoncpp/include/CMakeFiles/install/local.util: CUSTOM_COMMAND extern/jsoncpp/include/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\include && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/include/install/local: phony extern/jsoncpp/include/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build extern/jsoncpp/include/CMakeFiles/install/strip.util: CUSTOM_COMMAND extern/jsoncpp/include/all
+  COMMAND = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug\extern\jsoncpp\include && C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build extern/jsoncpp/include/install/strip: phony extern/jsoncpp/include/CMakeFiles/install/strip.util
+
 # =============================================================================
 # Target aliases.
 
-build miniShark: phony miniShark.exe
+build Continuous: phony extern/jsoncpp/Continuous
+
+build ContinuousBuild: phony extern/jsoncpp/ContinuousBuild
+
+build ContinuousConfigure: phony extern/jsoncpp/ContinuousConfigure
+
+build ContinuousCoverage: phony extern/jsoncpp/ContinuousCoverage
+
+build ContinuousMemCheck: phony extern/jsoncpp/ContinuousMemCheck
+
+build ContinuousStart: phony extern/jsoncpp/ContinuousStart
+
+build ContinuousSubmit: phony extern/jsoncpp/ContinuousSubmit
+
+build ContinuousTest: phony extern/jsoncpp/ContinuousTest
+
+build ContinuousUpdate: phony extern/jsoncpp/ContinuousUpdate
+
+build Experimental: phony extern/jsoncpp/Experimental
+
+build ExperimentalBuild: phony extern/jsoncpp/ExperimentalBuild
+
+build ExperimentalConfigure: phony extern/jsoncpp/ExperimentalConfigure
+
+build ExperimentalCoverage: phony extern/jsoncpp/ExperimentalCoverage
+
+build ExperimentalMemCheck: phony extern/jsoncpp/ExperimentalMemCheck
+
+build ExperimentalStart: phony extern/jsoncpp/ExperimentalStart
+
+build ExperimentalSubmit: phony extern/jsoncpp/ExperimentalSubmit
+
+build ExperimentalTest: phony extern/jsoncpp/ExperimentalTest
+
+build ExperimentalUpdate: phony extern/jsoncpp/ExperimentalUpdate
+
+build Nightly: phony extern/jsoncpp/Nightly
+
+build NightlyBuild: phony extern/jsoncpp/NightlyBuild
+
+build NightlyConfigure: phony extern/jsoncpp/NightlyConfigure
+
+build NightlyCoverage: phony extern/jsoncpp/NightlyCoverage
+
+build NightlyMemCheck: phony extern/jsoncpp/NightlyMemCheck
+
+build NightlyMemoryCheck: phony extern/jsoncpp/NightlyMemoryCheck
+
+build NightlyStart: phony extern/jsoncpp/NightlyStart
+
+build NightlySubmit: phony extern/jsoncpp/NightlySubmit
+
+build NightlyTest: phony extern/jsoncpp/NightlyTest
+
+build NightlyUpdate: phony extern/jsoncpp/NightlyUpdate
+
+build jsoncpp_check: phony extern/jsoncpp/src/jsontestrunner/jsoncpp_check
+
+build jsoncpp_lib: phony bin/libjsoncpp.dll
+
+build jsoncpp_object: phony extern/jsoncpp/src/lib_json/jsoncpp_object
+
+build jsoncpp_readerwriter_tests: phony extern/jsoncpp/src/jsontestrunner/jsoncpp_readerwriter_tests
+
+build jsoncpp_static: phony lib/libjsoncpp.a
+
+build jsoncpp_test: phony bin/jsoncpp_test.exe
+
+build jsoncpp_test.exe: phony bin/jsoncpp_test.exe
+
+build jsontestrunner_exe: phony bin/jsontestrunner_exe.exe
+
+build jsontestrunner_exe.exe: phony bin/jsontestrunner_exe.exe
+
+build libjsoncpp.a: phony lib/libjsoncpp.a
+
+build libjsoncpp.dll: phony bin/libjsoncpp.dll
+
+build miniShark: phony bin/miniShark.exe
+
+build miniShark.exe: phony bin/miniShark.exe
 
 # =============================================================================
 # Folder targets.
@@ -109,7 +1296,49 @@ build miniShark: phony miniShark.exe
 #############################################
 # Folder: D:/projects/c++/miniShark/cmake-build-debug
 
-build all: phony miniShark.exe
+build all: phony bin/miniShark.exe extern/jsoncpp/all
+
+# =============================================================================
+
+#############################################
+# Folder: D:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp
+
+build extern/jsoncpp/all: phony extern/jsoncpp/src/all extern/jsoncpp/include/all
+
+# =============================================================================
+
+#############################################
+# Folder: D:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include
+
+build extern/jsoncpp/include/all: phony
+
+# =============================================================================
+
+#############################################
+# Folder: D:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/src
+
+build extern/jsoncpp/src/all: phony extern/jsoncpp/src/lib_json/all extern/jsoncpp/src/jsontestrunner/all extern/jsoncpp/src/test_lib_json/all
+
+# =============================================================================
+
+#############################################
+# Folder: D:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/src/jsontestrunner
+
+build extern/jsoncpp/src/jsontestrunner/all: phony bin/jsontestrunner_exe.exe
+
+# =============================================================================
+
+#############################################
+# Folder: D:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/src/lib_json
+
+build extern/jsoncpp/src/lib_json/all: phony bin/libjsoncpp.dll lib/libjsoncpp.a extern/jsoncpp/src/lib_json/jsoncpp_object
+
+# =============================================================================
+
+#############################################
+# Folder: D:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/src/test_lib_json
+
+build extern/jsoncpp/src/test_lib_json/all: phony bin/jsoncpp_test.exe
 
 # =============================================================================
 # Built-in targets
@@ -118,14 +1347,14 @@ build all: phony miniShark.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeRCInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-windres.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeRCCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake D$:/projects/c++/miniShark/CMakeLists.txt
+build build.ninja: RERUN_CMAKE | C$:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/share/jsoncpp/jsoncpp-namespaced-targets.cmake C$:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/share/jsoncpp/jsoncpp-targets.cmake C$:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/share/jsoncpp/jsoncppConfig.cmake C$:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/share/jsoncpp/jsoncppConfigVersion.cmake C$:/Users/cerce/.clion-vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeRCInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CTest.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CTestTargets.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CTestUseLaunchers.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCXXSourceCompiles.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCXXSymbolExists.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckIncludeFileCXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckStructHasMember.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckSymbolExists.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckTypeSize.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/DartConfiguration.tcl.in C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPython3.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPython/Support.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-windres.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/WindowsPaths.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeRCCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake D$:/projects/c++/miniShark/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/CTestConfig.cmake D$:/projects/c++/miniShark/extern/jsoncpp/cmake/JoinPaths.cmake D$:/projects/c++/miniShark/extern/jsoncpp/include/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/include/PreventInBuildInstalls.cmake D$:/projects/c++/miniShark/extern/jsoncpp/include/PreventInSourceBuilds.cmake D$:/projects/c++/miniShark/extern/jsoncpp/jsoncppConfig.cmake.in D$:/projects/c++/miniShark/extern/jsoncpp/pkg-config/jsoncpp.pc.in D$:/projects/c++/miniShark/extern/jsoncpp/src/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/src/jsontestrunner/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/src/test_lib_json/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/version.in
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeRCInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-windres.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeRCCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake D$:/projects/c++/miniShark/CMakeLists.txt: phony
+build C$:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/share/jsoncpp/jsoncpp-namespaced-targets.cmake C$:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/share/jsoncpp/jsoncpp-targets.cmake C$:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/share/jsoncpp/jsoncppConfig.cmake C$:/Users/cerce/.clion-vcpkg/vcpkg/installed/x64-windows/share/jsoncpp/jsoncppConfigVersion.cmake C$:/Users/cerce/.clion-vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeRCInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CTest.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CTestTargets.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CTestUseLaunchers.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCXXSourceCompiles.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCXXSymbolExists.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckIncludeFileCXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckStructHasMember.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckSymbolExists.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckTypeSize.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/DartConfiguration.tcl.in C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPython3.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPython/Support.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-windres.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/WindowsPaths.cmake C$:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeRCCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake D$:/projects/c++/miniShark/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/CTestConfig.cmake D$:/projects/c++/miniShark/extern/jsoncpp/cmake/JoinPaths.cmake D$:/projects/c++/miniShark/extern/jsoncpp/include/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/include/PreventInBuildInstalls.cmake D$:/projects/c++/miniShark/extern/jsoncpp/include/PreventInSourceBuilds.cmake D$:/projects/c++/miniShark/extern/jsoncpp/jsoncppConfig.cmake.in D$:/projects/c++/miniShark/extern/jsoncpp/pkg-config/jsoncpp.pc.in D$:/projects/c++/miniShark/extern/jsoncpp/src/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/src/jsontestrunner/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/src/test_lib_json/CMakeLists.txt D$:/projects/c++/miniShark/extern/jsoncpp/version.in: phony
 
 
 #############################################

@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.25)
 project(miniShark)
 
 set(CMAKE_CXX_STANDARD 14)
+add_subdirectory("${PROJECT_SOURCE_DIR}/extern/jsoncpp" "extern/jsoncpp")
 
 add_executable(miniShark
         .idea/.gitignore
@@ -16,3 +17,6 @@ endif ()
 if (UNIX)
     target_link_libraries(miniShark PRIVATE socket)
 endif ()
+
+find_package(jsoncpp CONFIG REQUIRED)
+target_link_libraries(miniShark PUBLIC jsoncpp_lib)
