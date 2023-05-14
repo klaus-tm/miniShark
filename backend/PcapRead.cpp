@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <bitset>
 #include <json/json.h>
+#include <windows.h>
+#include <filesystem>
 
 using namespace std;
 
@@ -43,7 +45,7 @@ struct EthernetHeader {
     uint16_t etherType;         // Ethernet type field
 };
 
-struct IPHeader {
+struct IPv4Header {
     uint8_t versionIHL;         // Version and Internet Header Length
     uint8_t typeOfService;      // Type of Service
     uint16_t totalLength;       // Total length of the IP packet
@@ -69,9 +71,18 @@ struct TCPHeader {
 };
 
 struct ICMPHeader {
-    uint8_t type;        // ICMP message type
-    uint8_t code;        // ICMP message code
-    uint16_t checksum;   // ICMP checksum
+    uint8_t type;            // ICMP message type
+    uint8_t code;            // ICMP message code
+    uint16_t checksum;       // ICMP checksum
+    uint16_t identifier; // ICMP identifier (set to 0 if the type is error)
+    uint16_t sequenceNumber; // ICMP sequence number (set to 0 if the type is error)
+};
+
+struct UDPHeader {
+    uint16_t sourcePort;      // source port number
+    uint16_t destPort;        // destination port number
+    uint16_t length;          // length of the UDP header and data
+    uint16_t checksum;        // checksum
 };
 
 void checkEndianess(uint32_t magicNumber);
@@ -107,6 +118,17 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    //delete all older jsons if they exist
+    string path = __FILE__;
+    path = path.substr(0, path.length() - 12);
+    path = path + "output";
+    for (const auto& file : std::filesystem::directory_iterator(path)) {
+        // Check if the file is a regular file and has a .json extension
+        if (file.is_regular_file() && file.path().extension() == ".json") {
+            // Delete the file
+            std::filesystem::remove(file);
+        }
+    }
     //check if file path was provided by the child process call in js. NOT YET IMPLEMENTED!!!
 //    if (argc < 2)
 //        cerr << "File path not provided!\n";
@@ -114,7 +136,7 @@ int main(int argc, char* argv[]) {
 //        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
 
     // Open the PCAP file fuzz-2006-07-09-6023
-    ifstream file("C:\\Users\\cerce\\Desktop\\yes.pcap", ios::binary);
+    ifstream file("C:\\Users\\cerce\\Desktop\\icmp.pcap", ios::binary);
     if (!file.is_open()) {
         cerr << "Error opening pcap file\n";
         return 1;
@@ -277,8 +299,8 @@ void parseEthernet(vector<uint8_t> packetData, Json::Value root) {
 
 void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
     //ipheader collecting
-    IPHeader ipHeader;
-    memcpy(&ipHeader, packetData.data(), sizeof(IPHeader));
+    IPv4Header ipHeader;
+    memcpy(&ipHeader, packetData.data(), sizeof(IPv4Header));
 
     //version and internet header length (ihl)
     uint8_t version = (ipHeader.versionIHL >> 4) & 0x0F;
@@ -303,7 +325,7 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
     ipHeader.totalLength = ntohs(ipHeader.totalLength);
     root["IP Total Length"] = to_string(ipHeader.totalLength) + " bytes";
 
-    //identification field
+    //identifier field
     ipHeader.identification = ntohs(ipHeader.identification);
     root["IP Identification"] = to_string(ipHeader.identification);
 
@@ -336,13 +358,13 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
     else if (static_cast<int>(ipHeader.protocol) == 41)//TO DISCUSS!!!
         root["IP Protocol"] = "IPv6 //TO DO//";
     else if (static_cast<int>(ipHeader.protocol) == 50)
-        root["IP Protocol"] = "ESP //TO DO//";
+        root["IP Protocol"] = "ESP //WILL NOT BE IMPLEMENTED//";
     else if (static_cast<int>(ipHeader.protocol) == 51)
-        root["IP Protocol"] = "AH //TO DO//";
+        root["IP Protocol"] = "AH //WILL NOT BE IMPLEMENTED//";
     else if (static_cast<int>(ipHeader.protocol) == 89)
-        root["IP Protocol"] = "OSPF //TO DO//";
+        root["IP Protocol"] = "OSPF //WILL NOT BE IMPLEMENTED//";
     else if (static_cast<int>(ipHeader.protocol) == 132)
-        root["IP Protocol"] = "SCTP //TO DO//";
+        root["IP Protocol"] = "SCTP //WILL NOT BE IMPLEMENTED//";
 
     //checksum
     stringstream checksum;
@@ -386,18 +408,18 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
     else if (static_cast<int>(ipHeader.protocol) == 41)//TO DISCUSS!!!
         //IPv6
         parseIPv4IPv6(packetData, root);
-    else if (static_cast<int>(ipHeader.protocol) == 50)
-        //ESP
-        parseIPv4ESP(packetData, root);
-    else if (static_cast<int>(ipHeader.protocol) == 51)
-        //AH
-        parseIPv4AH(packetData, root);
-    else if (static_cast<int>(ipHeader.protocol) == 89)
-        //OSPF
-        parseIPv4OSPF(packetData, root);
-    else if (static_cast<int>(ipHeader.protocol) == 132)
-        //SCTP
-        parseIPv4SCTP(packetData, root);
+//    else if (static_cast<int>(ipHeader.protocol) == 50)
+//        //ESP
+//        parseIPv4ESP(packetData, root);
+//    else if (static_cast<int>(ipHeader.protocol) == 51)
+//        //AH
+//        parseIPv4AH(packetData, root);
+//    else if (static_cast<int>(ipHeader.protocol) == 89)
+//        //OSPF
+//        parseIPv4OSPF(packetData, root);
+//    else if (static_cast<int>(ipHeader.protocol) == 132)
+//        //SCTP
+//        parseIPv4SCTP(packetData, root);
 }
 
 void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root) {
@@ -409,34 +431,93 @@ void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root) {
     memcpy(&icmpHeader, packetData.data(), sizeof(ICMPHeader));
     packetData.erase(packetData.begin(), packetData.begin() + sizeof(ICMPHeader));
 
-    //icmp type
-    cout << "ICMP TYPE: ";
-    if (icmpHeader.type == 0)
-        cout << "Echo Reply\n";
-    else if (icmpHeader.type == 3)
-        cout << "Destination Unreachable\n";
-    else if (icmpHeader.type == 4)
-        cout << "Source Quench\n";
-    else if (icmpHeader.type == 5)
-        cout << "Redirect\n";
-    else if (icmpHeader.type == 8)
-        cout << "Echo Request\n";
-    else if (icmpHeader.type == 11)
-        cout << "Time Exceeded\n";
-    else if (icmpHeader.type == 12)
-        cout << "Parameter Problem\n";
-    else if (icmpHeader.type == 13)
-        cout << "Timestamp Request\n";
-    else if (icmpHeader.type == 14)
-        cout << "Timestamp Reply\n";
-    else if (icmpHeader.type == 15)
-        cout << "Information Request\n";
-    else if (icmpHeader.type == 16)
-        cout << "Information Reply\n";
-    else
-        cout << "Unknown\n";
+    //icmp message type
+    if (icmpHeader.type == 0){
+        root["ICMP Type"] = "Echo Reply";
+        root["ICMP Code"] = "Same as type (0)";
 
+        //because there are no errors we need identifier and sequence number.
+        root["ICMP Identifier"] = to_string(icmpHeader.identifier);
+        root["ICMP Sequence Number"] = to_string(icmpHeader.sequenceNumber);
+    }
+    else if (icmpHeader.type == 3){
+        root["ICMP Type"] = "Destination Unreachable";
 
+        //delete the ip + protocol headers encapsulated within the icmp error message
+        IPv4Header ipHeader;
+        memcpy(&ipHeader, packetData.data(), sizeof(IPv4Header));
+        uint8_t ihl = (ipHeader.versionIHL & 0x0F) * 4;
+        packetData.erase(packetData.begin(), packetData.begin() + static_cast<unsigned int>(ihl));
+
+        if (static_cast<int>(ipHeader.protocol) == 6){
+            TCPHeader tcpHeader;
+            memcpy(&tcpHeader, packetData.data(), sizeof(TCPHeader));
+            packetData.erase(packetData.begin(), packetData.begin() + static_cast<int>(tcpHeader.dataOffset >> 4) * 4);
+        }
+        else if (static_cast<int>(ipHeader.protocol) == 17)
+            packetData.erase(packetData.begin(), packetData.begin() + sizeof(UDPHeader));
+
+        if (icmpHeader.code == 0)
+            root["ICMP Code"] = "Network unreachable (0)";
+        else if (icmpHeader.code == 1)
+            root["ICMP Code"] = "Host unreachable (1)";
+        else if (icmpHeader.code == 2)
+            root["ICMP Code"] = "Protocol unreachable (2)";
+        else if (icmpHeader.code == 3)
+            root["ICMP Code"] = "Port unreachable (3)";
+        else if (icmpHeader.code == 4)
+            root["ICMP Code"] = "Fragmentation needed and DF (Don't Fragment) flag set (4)";
+        else if (icmpHeader.code == 5)
+            root["ICMP Code"] = "Source route failed (5)";
+    }
+    else if (icmpHeader.type == 8){
+        root["ICMP Type"] = "Echo Request";
+        root["ICMP Code"] = "Same as type (0)";
+
+        //because there are no errors we need identifier and sequence number.
+        root["ICMP Identifier"] = to_string(icmpHeader.identifier);
+        root["ICMP Sequence Number"] = to_string(icmpHeader.sequenceNumber);
+    }
+    else if (icmpHeader.type == 11){
+        root["ICMP Type"] = "Time Exceeded";
+
+        IPv4Header ipHeader;
+        memcpy(&ipHeader, packetData.data(), sizeof(IPv4Header));
+        uint8_t ihl = (ipHeader.versionIHL & 0x0F) * 4;
+        packetData.erase(packetData.begin(), packetData.begin() + static_cast<unsigned int>(ihl));
+
+        if (static_cast<int>(ipHeader.protocol) == 6){
+            TCPHeader tcpHeader;
+            memcpy(&tcpHeader, packetData.data(), sizeof(TCPHeader));
+            packetData.erase(packetData.begin(), packetData.begin() + static_cast<int>(tcpHeader.dataOffset >> 4) * 4);
+        }
+        else if (static_cast<int>(ipHeader.protocol) == 17)
+            packetData.erase(packetData.begin(), packetData.begin() + sizeof(UDPHeader));
+
+        if (icmpHeader.code == 0)
+            root["ICMP Code"] = "TTL expired in transit (0)";
+        else root["ICMP Code"] = "Fragment reassembly time exceeded (1)";
+    }
+    else root["ICMP Type"] = "Unknown";
+    stringstream checksum;
+    checksum << hex << ntohs(icmpHeader.checksum);
+    root["ICMP Checksum"] = checksum.str();
+
+    stringstream data;
+    for (int i = 0; i < packetData.size(); ++i) {
+        data << packetData[i];
+    }
+    root["Packet Data"] = data.str();
+
+    Json::StreamWriterBuilder writerBuilder;
+    string jsonString = Json::writeString(writerBuilder, root);
+    ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+    if (outputPacket.is_open())
+        outputPacket << jsonString;
+    else {
+        cerr << "Unable to create Json!\n";
+        return;
+    }
 }
 
 void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root) {
@@ -460,6 +541,7 @@ void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root) {
     root["TCP Sequence Number"] = to_string(tcpHeader.sequenceNumber);
     root["TCP Acknowledgement Number"] = to_string(tcpHeader.ackNumber);
     root["TCP Header Length"] = to_string(static_cast<int>(tcpHeader.dataOffset >> 4) * 4) + " (" + to_string(static_cast<int>(tcpHeader.dataOffset >> 4)) + ")";
+
     if ((tcpHeader.flags & 0x02) >> 1)
         root["TCP Flags"] = "SYN (Synchronize)";
     else if ((tcpHeader.flags & 0x04) >> 2)
@@ -485,7 +567,7 @@ void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root) {
 
     Json::StreamWriterBuilder writerBuilder;
     string jsonString = Json::writeString(writerBuilder, root);
-    ofstream outputPacket("D:\\projects\\c++\\miniShark\\backend\\output\\packet" + root["Packet Number"].asString() + ".json");
+    ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
     if (outputPacket.is_open())
         outputPacket << jsonString;
     else {

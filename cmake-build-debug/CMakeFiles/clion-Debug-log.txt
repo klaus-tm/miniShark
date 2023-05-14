@@ -1,20 +1,23 @@
 C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/cerce/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/231.8109.222/bin/ninja/win/x64/ninja.exe -DCMAKE_TOOLCHAIN_FILE=C:\Users\cerce\.clion-vcpkg\vcpkg\scripts\buildsystems\vcpkg.cmake -G Ninja -S D:\projects\c++\miniShark -B D:\projects\c++\miniShark\cmake-build-debug
+-- Running vcpkg install
+Detecting compiler hash for triplet x64-windows...
+All requested packages are currently installed.
+Restored 0 package(s) from C:\Users\cerce\AppData\Local\vcpkg\archives in 98.1 us. Use --debug to see more details.
+Total install time: 124 us
+jsoncpp provides CMake targets:
+
+    # this is heuristically generated, and may not be correct
+    find_package(jsoncpp CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE JsonCpp::JsonCpp)
+
+-- Running vcpkg install - done
 -- JsonCpp Version: 1.9.5
--- Looking for C++ include clocale
--- Looking for C++ include clocale - found
--- Looking for localeconv
--- Looking for localeconv - found
--- Looking for C++ include sys/types.h
--- Looking for C++ include sys/types.h - found
--- Looking for C++ include stdint.h
--- Looking for C++ include stdint.h - found
--- Looking for C++ include stddef.h
--- Looking for C++ include stddef.h - found
--- Check size of lconv
--- Check size of lconv - done
--- Performing Test HAVE_DECIMAL_POINT
--- Performing Test HAVE_DECIMAL_POINT - Success
--- Found Python3: C:/msys64/mingw64/bin/python3.9.exe (found version "3.9.10") found components: Interpreter 
 -- Configuring done
 -- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_TOOLCHAIN_FILE
+
+
 -- Build files have been written to: D:/projects/c++/miniShark/cmake-build-debug

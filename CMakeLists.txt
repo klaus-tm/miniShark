@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 project(miniShark)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 add_subdirectory("${PROJECT_SOURCE_DIR}/extern/jsoncpp" "extern/jsoncpp")
 
 add_executable(miniShark
