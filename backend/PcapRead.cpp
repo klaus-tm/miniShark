@@ -11,8 +11,10 @@
 #include <json/json.h>
 
 using namespace std;
+
 uint32_t value = 0x12345678;
 bool littleEndian = false;
+int nr = 0;
 struct PcapGlobalHeader {
     uint32_t magicNumber;  /* magic number */
     uint16_t versionMajor; /* major version number */
@@ -66,6 +68,12 @@ struct TCPHeader {
     uint16_t urgentPointer;   // urgent pointer
 };
 
+struct ICMPHeader {
+    uint8_t type;        // ICMP message type
+    uint8_t code;        // ICMP message code
+    uint16_t checksum;   // ICMP checksum
+};
+
 void checkEndianess(uint32_t magicNumber);
 
 void printFileHeader(PcapGlobalHeader fileHeader);
@@ -95,23 +103,30 @@ void parseIPv4SCTP(vector<uint8_t> packetData, Json::Value root);
 int main(int argc, char* argv[]) {
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "Failed to initialize Winsock." << std::endl;
+        cerr << "Failed to initialize Winsock.\n";
         return 1;
     }
-    //string filePath = argv[1];
+
+    //check if file path was provided by the child process call in js. NOT YET IMPLEMENTED!!!
+//    if (argc < 2)
+//        cerr << "File path not provided!\n";
+//    else
+//        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
+
     // Open the PCAP file fuzz-2006-07-09-6023
     ifstream file("C:\\Users\\cerce\\Desktop\\yes.pcap", ios::binary);
     if (!file.is_open()) {
-        cerr << "Error opening pcap file" << endl;
+        cerr << "Error opening pcap file\n";
         return 1;
     }
-    //check if system is either big or little endian
-    uint32_t networkValue = htonl(value);
 
-    if (value == networkValue)
-        cout << "System is using big-endian byte order.\n";
-    else
-        cout << "System is using little-endian byte order.\n";
+    //check if system is either big or little endian. NOT NECESARRY FOR FINAL VERSION JUST FOR INTERNAL TESTING!!!
+//    uint32_t networkValue = htonl(value);
+//
+//    if (value == networkValue)
+//        cout << "System is using big-endian byte order.\n";
+//    else
+//        cout << "System is using little-endian byte order.\n";
 
     // Read the PCAP file header
     PcapGlobalHeader fileHeader;
@@ -120,7 +135,7 @@ int main(int argc, char* argv[]) {
     //check for the endianess of the file
     checkEndianess(fileHeader.magicNumber);
 
-    //print the rest of the pcap header
+    //print the rest of the pcap header. NOT NECESARRY FOR FINAL VERSION JUST FOR INTERNAL TESTING!!!
     printFileHeader(fileHeader);
 
     // Loop through the packets in the file
@@ -139,22 +154,26 @@ int main(int argc, char* argv[]) {
         }
         packets.push_back(pcapPacket);
     }
+
     // Close the PCAP file
     file.close();
+
     //print the packets captured
     printPacket(packets);
 
+    cout << to_string(nr) << " done\n";
     WSACleanup();
     return 0;
-
 }
 
 void checkEndianess(uint32_t magicNumber) {
     stringstream ss;
     ss << hex << magicNumber;
-    if (ss.str() == "a1b2c3d4")
+    if (ss.str() == "a1b2c3d4"){
         cout << "ENDIANESS: BIG ENDIAN\n";
-    else{
+        littleEndian = false;
+    }
+    else {
         cout << "ENDIANESS: LITTLE ENDIAN\n";
         littleEndian = true;
     }
@@ -191,7 +210,7 @@ void printPacket(vector<PcapPacket> packets) {
         PcapPacket packet = packets[i];
         Json::Value root;
         root["Packet Number"] = to_string(i+1);
-        //cout << "Packet " << i+1 << "\n";
+        nr++ ;
 
         if (littleEndian == true){
             packet.pcapPacketHeader.tsSec = ntohl(packet.pcapPacketHeader.tsSec);
@@ -205,8 +224,7 @@ void printPacket(vector<PcapPacket> packets) {
         root["Packet Original Length"] = to_string(packet.pcapPacketHeader.origLen) + " bytes";
 
         parseEthernet(packet.data, root);
-
-        cout << "\n\n";
+        //cout << "\n\n";
     }
 }
 
@@ -383,12 +401,47 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
 }
 
 void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root) {
+    if (packetData.size() < sizeof(ICMPHeader)){
+        cerr << "Incomplete ICMP header.\n";
+        return;
+    }
+    ICMPHeader icmpHeader;
+    memcpy(&icmpHeader, packetData.data(), sizeof(ICMPHeader));
+    packetData.erase(packetData.begin(), packetData.begin() + sizeof(ICMPHeader));
+
+    //icmp type
+    cout << "ICMP TYPE: ";
+    if (icmpHeader.type == 0)
+        cout << "Echo Reply\n";
+    else if (icmpHeader.type == 3)
+        cout << "Destination Unreachable\n";
+    else if (icmpHeader.type == 4)
+        cout << "Source Quench\n";
+    else if (icmpHeader.type == 5)
+        cout << "Redirect\n";
+    else if (icmpHeader.type == 8)
+        cout << "Echo Request\n";
+    else if (icmpHeader.type == 11)
+        cout << "Time Exceeded\n";
+    else if (icmpHeader.type == 12)
+        cout << "Parameter Problem\n";
+    else if (icmpHeader.type == 13)
+        cout << "Timestamp Request\n";
+    else if (icmpHeader.type == 14)
+        cout << "Timestamp Reply\n";
+    else if (icmpHeader.type == 15)
+        cout << "Information Request\n";
+    else if (icmpHeader.type == 16)
+        cout << "Information Reply\n";
+    else
+        cout << "Unknown\n";
+
 
 }
 
 void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root) {
     if (packetData.size() < sizeof(TCPHeader)) {
-        cout << "Incomplete TCP header.\n";
+        cerr << "Incomplete TCP header.\n";
         return;
     }
 
@@ -435,7 +488,10 @@ void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root) {
     ofstream outputPacket("D:\\projects\\c++\\miniShark\\backend\\output\\packet" + root["Packet Number"].asString() + ".json");
     if (outputPacket.is_open())
         outputPacket << jsonString;
-    else cout << "operatie esuata!\n";
+    else {
+        cerr << "Unable to create Json!\n";
+        return;
+    }
 }
 
 void parseIPv4UDP(vector<uint8_t> packetData, Json::Value root) {
