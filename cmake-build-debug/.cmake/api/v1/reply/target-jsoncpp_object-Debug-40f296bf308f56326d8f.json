@@ -1,0 +1,330 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/./json_reader.cpp.obj"
+		},
+		{
+			"path" : "extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/./json_value.cpp.obj"
+		},
+		{
+			"path" : "extern/jsoncpp/src/lib_json/CMakeFiles/jsoncpp_object.dir/./json_writer.cpp.obj"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"_add_library",
+			"add_library",
+			"install",
+			"add_compile_options",
+			"add_compile_definitions",
+			"include_directories",
+			"target_include_directories",
+			"target_compile_features"
+		],
+		"files" : 
+		[
+			"C:/Users/cerce/.clion-vcpkg/vcpkg/scripts/buildsystems/vcpkg.cmake",
+			"extern/jsoncpp/src/lib_json/CMakeLists.txt",
+			"extern/jsoncpp/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 177,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 633,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 202,
+				"parent" : 0
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 144,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 148,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 3,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 111,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 124,
+				"parent" : 4
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 193,
+				"parent" : 0
+			},
+			{
+				"command" : 7,
+				"file" : 1,
+				"line" : 191,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wconversion"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-Wpedantic"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Werror=strict-aliasing"
+				},
+				{
+					"fragment" : "-std=c++11"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 8,
+					"define" : "JSON_DLL_BUILD"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 9,
+					"path" : "D:/projects/c++/miniShark/extern/jsoncpp/include"
+				},
+				{
+					"backtrace" : 10,
+					"path" : "D:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include"
+				},
+				{
+					"backtrace" : 10,
+					"path" : "D:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11,
+					11
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				9,
+				11,
+				12
+			]
+		}
+	],
+	"id" : "jsoncpp_object::@91ae7eab9d21db33b063",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 3,
+				"path" : "lib"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "C:/Program Files (x86)/miniShark"
+		}
+	},
+	"name" : "jsoncpp_object",
+	"paths" : 
+	{
+		"build" : "extern/jsoncpp/src/lib_json",
+		"source" : "extern/jsoncpp/src/lib_json"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Public API",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				8,
+				10
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				9,
+				11,
+				12
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/include/json/config.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/include/json/forwards.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/include/json/json_features.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/include/json/value.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/include/json/reader.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/include/json/version.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/include/json/writer.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/include/json/assertions.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/src/lib_json/json_tool.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "extern/jsoncpp/src/lib_json/json_reader.cpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 2,
+			"path" : "extern/jsoncpp/src/lib_json/json_valueiterator.inl",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "extern/jsoncpp/src/lib_json/json_value.cpp",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "extern/jsoncpp/src/lib_json/json_writer.cpp",
+			"sourceGroupIndex" : 2
+		}
+	],
+	"type" : "OBJECT_LIBRARY"
+}

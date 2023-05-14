@@ -1,0 +1,10 @@
+Detecting compiler hash for triplet x64-windows...
+All requested packages are currently installed.
+Restored 0 package(s) from C:\Users\cerce\AppData\Local\vcpkg\archives in 98.1 us. Use --debug to see more details.
+Total install time: 124 us
+jsoncpp provides CMake targets:
+
+    # this is heuristically generated, and may not be correct
+    find_package(jsoncpp CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE JsonCpp::JsonCpp)
+
