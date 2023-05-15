@@ -1,4 +1,3 @@
-console.log("Ceva");
 //marimea adaptabila a componentelor in functie de ecran
 let screenWidth = window.innerWidth;
 const consola = document.querySelector('#consola');
