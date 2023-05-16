@@ -130,13 +130,13 @@ int main(int argc, char* argv[]) {
         }
     }
     //check if file path was provided by the child process call in js. NOT YET IMPLEMENTED!!!
-//    if (argc < 2)
-//        cerr << "File path not provided!\n";
-//    else
-//        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
+    if (argc < 2)
+        cerr << "File path not provided!\n";
+    else
+        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
 
     // Open the PCAP file fuzz-2006-07-09-6023
-    ifstream file("C:\\Users\\cerce\\Desktop\\icmp.pcap", ios::binary);
+    ifstream file(filePath/*"C:\\Users\\cerce\\Desktop\\icmp.pcap"*/, ios::binary);
     if (!file.is_open()) {
         cerr << "Error opening pcap file\n";
         return 1;
@@ -158,7 +158,7 @@ int main(int argc, char* argv[]) {
     checkEndianess(fileHeader.magicNumber);
 
     //print the rest of the pcap header. NOT NECESARRY FOR FINAL VERSION JUST FOR INTERNAL TESTING!!!
-    printFileHeader(fileHeader);
+    //printFileHeader(fileHeader);
 
     // Loop through the packets in the file
     vector<PcapPacket>packets;
