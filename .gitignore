@@ -1,6 +1,6 @@
-/my-electron-app/node_modules/
 /fisiere_test/
 /node_modules/
 /extern/
 /cmake-build-debug/
 /cmake-build-default/
+/electron-app/node_modules/
