@@ -46,7 +46,8 @@ function loadFile(e){
 function humanFct(e) {
   if (file) {
     // Trimiterea fișierului către procesul principal
-    window.electronAPI.sendFileToMainProcess(file);
+    console.log(file);
+    window.electronAPI.sendFileToMainProcess(file.name);
   
     // Ascultarea răspunsului de la procesul principal
     window.electronAPI.receiveProcessedFilePath((filePath) => {

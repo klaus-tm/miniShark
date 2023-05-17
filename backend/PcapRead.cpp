@@ -65,9 +65,9 @@ struct ARPHeader {
     uint8_t protocolLength;    // Length of protocol address (IP address)
     uint16_t operation;        // ARP operation (request = 1, reply = 2)
     uint8_t senderMAC[6];      // Sender's MAC address
-    uint8_t senderIP[4];       // Sender's IP address
+    uint8_t senderIP[8];       // Sender's IP address
     uint8_t targetMAC[6];      // Target's MAC address
-    uint8_t targetIP[4];       // Target's IP address
+    uint8_t targetIP[8];       // Target's IP address
 };
 
 struct TCPHeader {
@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
 //        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
 
     // Open the PCAP file. Test files: fuzz-2006-07-09-6023, yes, icmp, udp, arp
-    ifstream file("C:\\Users\\cerce\\Desktop\\yes.pcap", ios::binary);
+    ifstream file("C:\\Users\\cerce\\Desktop\\arp.pcap"/*change string with filePath*/, ios::binary);
     if (!file.is_open()) {
         cerr << "Error opening pcap file\n";
         exit(EXIT_FAILURE);

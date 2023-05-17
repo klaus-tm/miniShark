@@ -28,7 +28,9 @@ function createWindow() {
   //mainWindow.on('closed', function() {mainWindow = null;});
 
   ipcMain.on('file-selected', (event, file) => {
-    const filePath = path.join(app.getPath('userData'), file.name);
+    console.log(file);
+    console.log(app.getPath('userData'));
+    const filePath = path.join(app.getPath('userData'), file);
     event.reply('file-processed', filePath);
   });
 }
