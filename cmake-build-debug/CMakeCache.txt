@@ -384,6 +384,9 @@ MEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND
 //File that contains suppressions for the memory checker
 MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 
+//The directory containing a CMake configuration file for PcapPlusPlus.
+PcapPlusPlus_DIR:PATH=PcapPlusPlus_DIR-NOTFOUND
+
 //Name of the computer/site where compile is being run
 SITE:STRING=DESKTOP-9V1OS39
 

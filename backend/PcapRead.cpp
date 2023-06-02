@@ -58,16 +58,27 @@ struct IPv4Header {
     uint32_t destinationIP;        // Destination IP address
 };
 
+struct IPv6Header {
+    uint8_t version;            // IP version (should be 6)
+    uint8_t trafficClass;       // Traffic Class
+    uint8_t flowLabel[2];       // Flow label
+    uint16_t payloadLength;     // Length of the payload (including extension headers)
+    uint8_t protocol;           // Next header protocol
+    uint8_t hopLimit;           // Hop limit (TTL)
+    uint8_t sourceIP[16];       // Source IPv6 address
+    uint8_t destinationIP[16];  // Destination IPv6 address
+};
+
 struct ARPHeader {
-    uint16_t hardwareType;     // Hardware type (e.g., Ethernet = 1)
-    uint16_t protocolType;     // Protocol type (e.g., IPv4 = 0x0800)
-    uint8_t hardwareLength;    // Length of hardware address (MAC address)
-    uint8_t protocolLength;    // Length of protocol address (IP address)
-    uint16_t operation;        // ARP operation (request = 1, reply = 2)
-    uint8_t senderMAC[6];      // Sender's MAC address
-    uint8_t senderIP[8];       // Sender's IP address
-    uint8_t targetMAC[6];      // Target's MAC address
-    uint8_t targetIP[8];       // Target's IP address
+    uint16_t hardwareType;   // Hardware type (e.g., Ethernet = 1)
+    uint16_t protocolType;   // Protocol type (e.g., IPv4 = 0x0800)
+    uint8_t hardwareLength;  // Length of hardware address (MAC address)
+    uint8_t protocolLength;  // Length of protocol address (IP address)
+    uint16_t operation;      // ARP operation (request = 1, reply = 2)
+    uint8_t senderMAC[6];    // Sender's MAC address
+    uint8_t senderIP[4];     // Sender's IP address
+    uint8_t targetMAC[6];    // Target's MAC address
+    uint8_t targetIP[4];     // Target's IP address
 };
 
 struct TCPHeader {
@@ -99,21 +110,21 @@ struct UDPHeader {
 
 void checkEndianess(uint32_t magicNumber);
 
-void printFileHeader(PcapGlobalHeader fileHeader);
-
 void printPacket(vector<PcapPacket> packets);
 
 void parseEthernet(vector<uint8_t> packetData, Json::Value root);
 
 void parseIPv4(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root);
+void parseICMP(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root);
+void parseTCP(vector<uint8_t> packetData, Json::Value root);
 
-void parseIPv4UDP(vector<uint8_t> packetData, Json::Value root);
+void parseUDP(vector<uint8_t> packetData, Json::Value root);
 
 void parseARP(vector<uint8_t> packetData, Json::Value root);
+
+void parseIPv6(vector<uint8_t> packetData, Json::Value root);
 
 int main(int argc, char* argv[]) {
     //initialisation of Winsock
@@ -142,7 +153,7 @@ int main(int argc, char* argv[]) {
 //        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
 
     // Open the PCAP file. Test files: fuzz-2006-07-09-6023, yes, icmp, udp, arp
-    ifstream file("C:\\Users\\cerce\\Desktop\\arp.pcap"/*change string with filePath*/, ios::binary);
+    ifstream file("C:\\Users\\cerce\\Desktop\\yes.pcap"/*change string with filePath*/, ios::binary);
     if (!file.is_open()) {
         cerr << "Error opening pcap file\n";
         exit(EXIT_FAILURE);
@@ -154,9 +165,6 @@ int main(int argc, char* argv[]) {
 
     //check for the endianess of the file
     checkEndianess(fileHeader.magicNumber);
-
-    //print the rest of the pcap header. NOT NECESARRY FOR FINAL VERSION JUST FOR INTERNAL TESTING!!!
-    printFileHeader(fileHeader);
 
     // Loop through the packets in the file
     vector<PcapPacket>packets;
@@ -191,41 +199,10 @@ void checkEndianess(uint32_t magicNumber) {
     ss << hex << magicNumber;
 
     //cout file endianess and note littleEndian value. NOT NECESARRY FOR FINAL VERSION JUST FOR INTERNAL TESTING!!! ONLY LITTLEENDIAN VALUE IS NECESARRY!!!
-    if (ss.str() == "a1b2c3d4"){
-        cout << "ENDIANESS: BIG ENDIAN\n";
+    if (ss.str() == "a1b2c3d4")
         littleEndian = false;
-    }
-    else {
-        cout << "ENDIANESS: LITTLE ENDIAN\n";
+    else
         littleEndian = true;
-    }
-}
-
-void printFileHeader(PcapGlobalHeader fileHeader) {
-    //NOT NECESARRY FOR FINAL VERSION JUST FOR INTERNAL TESTING!!!
-    if (littleEndian == true){
-        fileHeader.versionMajor = ntohs(fileHeader.versionMajor);
-        fileHeader.versionMinor = ntohs(fileHeader.versionMinor);
-        fileHeader.thiszone = ntohl(fileHeader.thiszone);//
-        fileHeader.sigfigs = ntohl(fileHeader.sigfigs);//
-        fileHeader.snaplen = ntohl(fileHeader.snaplen);//
-        fileHeader.network = ntohl(fileHeader.network);//
-    }
-
-    cout << "VERSION: " << fileHeader.versionMajor << "." << fileHeader.versionMinor << "\n";
-    cout << "Thiszone(not important): " << fileHeader.thiszone << "\n";
-    cout << "Sigfigs(not important): " << fileHeader.sigfigs << "\n";
-    cout << "MAX BYTES ALLOWED IN PACKETS: " << fileHeader.snaplen << " bytes\n";
-    if (fileHeader.network == 1)
-        cout << "NETWORK: ETHERNET\n";
-    else if (fileHeader.network == 105)
-        cout << "NETWORK: IEEE 802.11 wireless LAN\n";
-    else if (fileHeader.network == 9)
-        cout << "NETWORK: PPP(Point-to-point-protocol)\n";
-    else if (fileHeader.network == 104)
-        cout << "NETWORK: HDLC(High-Level Data Link Control)\n";
-    else cout << "NETWORK: FDDI(Fiber Distributed Data Interface)\n";
-    cout << "\n\n";
 }
 
 void printPacket(vector<PcapPacket> packets) {
@@ -247,7 +224,6 @@ void printPacket(vector<PcapPacket> packets) {
         root["Packet Original Length"] = to_string(packet.pcapPacketHeader.origLen) + " bytes";
 
         parseEthernet(packet.data, root);
-        //cout << "\n\n";
     }
 }
 
@@ -296,7 +272,7 @@ void parseEthernet(vector<uint8_t> packetData, Json::Value root) {
         root["Ethernet Ether Type"] = "IPv6.....work in progress......";
 
         //parsing IPv6 from the data vector
-        //parseIPv6(packetData, root);
+        parseIPv6(packetData, root);
     }
     else if (ethernetHeader.etherType == 2054){
         root["Ethernet Ether Type"] = "ITS A TRAP!!! Got it? TRAP from ARP. No? Oke fine its ARP and also......work in progress....";
@@ -306,8 +282,133 @@ void parseEthernet(vector<uint8_t> packetData, Json::Value root) {
     }
     else{
         root["Ethernet Ether Type"] = "I apologise but we're not network scientist we only know IPv4, IPv6, and ARP. Most likely this packet is corrupted so ye. Please refer to WireShark if you want a more professional tool :)";
+        Json::StreamWriterBuilder writerBuilder;
+        string jsonString = Json::writeString(writerBuilder, root);
+        ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+        if (outputPacket.is_open())
+            outputPacket << jsonString;
+        else {
+            cerr << "Unable to create Json!\n";
+            exit(EXIT_FAILURE);
+        }
     }
 
+}
+
+void parseIPv6(vector<uint8_t> packetData, Json::Value root) {
+    if (packetData.size() < sizeof(IPv6Header)){
+        cerr << "Incomplete IPv6 header!\n";
+        exit(EXIT_FAILURE);
+    }
+
+    //extract IPv6 header from packet data vector + delete it foe easy extractions for future headers
+    IPv6Header ipHeader;
+    memcpy(&ipHeader, packetData.data(), sizeof(IPv6Header));
+    packetData.erase(packetData.begin(), packetData.begin() + sizeof(IPv6Header));
+
+    //IPv6 version
+    uint8_t version = (ipHeader.version >> 4) & 0x0F;
+    root["IP Version"] = to_string(static_cast<int>(version));
+
+    //IPv6 traffic class
+    uint8_t trafficClass = (ipHeader.trafficClass >> 4) & 0xFF;
+    if (static_cast<int>(trafficClass) == 0)
+        root["IP Traffic Class"] = "Default";
+    else if (static_cast<int>(trafficClass) == 46)
+        root["IP Traffic Class"] = "Expedited Forwarding";
+    else if (static_cast<int>(trafficClass) == 10)
+        root["IP Traffic Class"] = "Assured Forwarding 11";
+    else if (static_cast<int>(trafficClass) == 12)
+        root["IP Traffic Class"] = "Assured Forwarding 12";
+    else if (static_cast<int>(trafficClass) == 14)
+        root["IP Traffic Class"] = "Assured Forwarding 13";
+    else if (static_cast<int>(trafficClass) == 18)
+        root["IP Traffic Class"] = "Assured Forwarding 21";
+    else if (static_cast<int>(trafficClass) == 20)
+        root["IP Traffic Class"] = "Assured Forwarding 22";
+    else if (static_cast<int>(trafficClass) == 22)
+        root["IP Traffic Class"] = "Assured Forwarding 23";
+    else if (static_cast<int>(trafficClass) == 26)
+        root["IP Traffic Class"] = "Assured Forwarding 31";
+    else if (static_cast<int>(trafficClass) == 28)
+        root["IP Traffic Class"] = "Assured Forwarding 32";
+    else if (static_cast<int>(trafficClass) == 30)
+        root["IP Traffic Class"] = "Assured Forwarding 33";
+    else if (static_cast<int>(trafficClass) == 34)
+        root["IP Traffic Class"] = "Assured Forwarding 41";
+    else if (static_cast<int>(trafficClass) == 36)
+        root["IP Traffic Class"] = "Assured Forwarding 42";
+    else if (static_cast<int>(trafficClass) == 38)
+        root["IP Traffic Class"] = "Assured Forwarding 43";
+
+    //IPv6 flow label
+    uint32_t flowLabel = ((ipHeader.trafficClass & 0x0F) << 16) | (ipHeader.flowLabel[0] << 8) | ipHeader.flowLabel[1];
+    stringstream FlowLabel;
+    FlowLabel << hex << setw(5) << setfill('0') << flowLabel << dec;
+    root["IP Flow Label"] = FlowLabel.str();
+
+    //IPv6 payload length
+    root["IP Payload Length"] = to_string(static_cast<int>(ntohs(ipHeader.payloadLength)));
+
+    //IPv6 protocol
+    if(static_cast<int>(ipHeader.protocol) == 6)
+        //TCP
+        root["IP Next Header"] = "TCP";
+    else if (static_cast<int>(ipHeader.protocol) == 17)
+        //UDP
+        root["IP Next Header"] = "UDP";
+    else if (static_cast<int>(ipHeader.protocol) == 58)
+        //ICMP
+        root["IP Next Header"] = "ICMPv6";
+    else root["IP Next Header"] = "Something not implemented";
+
+    //IPv6 hop limit
+    root["IP Hop Limit"] = to_string(static_cast<int>(ipHeader.hopLimit));
+
+    //IPv6 source IP
+    stringstream adress;
+    for (int i = 0; i < 16; i++) {
+        adress << hex << setw(2) << setfill('0') << static_cast<int>(ipHeader.sourceIP[i]);
+        if (i % 2 == 1 && i != 15) {
+            adress << ":";
+        }
+    }
+    adress << dec;
+    root["IP Source Adress"] = adress.str();
+    adress.clear();
+
+    //IPv6 destination IP
+    for (int i = 0; i < 16; i++) {
+        adress << hex << setw(2) << setfill('0') << static_cast<int>(ipHeader.destinationIP[i]);
+        if (i % 2 == 1 && i != 15) {
+            adress << ":";
+        }
+    }
+    adress << dec;
+    root["IP Destination Adress"] = adress.str();
+    adress.clear();
+
+    //parsing the other headers
+    if(static_cast<int>(ipHeader.protocol) == 6)
+        //TCP
+        parseTCP(packetData, root);
+    else if (static_cast<int>(ipHeader.protocol) == 17)
+        //UDP
+        parseUDP(packetData, root);
+    else if (static_cast<int>(ipHeader.protocol) == 58)
+        //ICMP
+        parseICMP(packetData, root);
+    else{
+        Json::StreamWriterBuilder writerBuilder;
+        string jsonString = Json::writeString(writerBuilder, root);
+        ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+        if (outputPacket.is_open())
+            outputPacket << jsonString;
+        else {
+            cerr << "Unable to create Json!\n";
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
 void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
@@ -383,6 +484,7 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
         root["IP Protocol"] = "OSPF //WILL NOT BE IMPLEMENTED//";
     else if (static_cast<int>(ipHeader.protocol) == 132)
         root["IP Protocol"] = "SCTP //WILL NOT BE IMPLEMENTED//";
+    else root["IP Protocol"] = "//SOMETHING THAT WILL NOT BE IMPLEMENTED//";
 
     //IPv4 checksum
     stringstream checksum;
@@ -416,16 +518,27 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
 
     if(static_cast<int>(ipHeader.protocol) == 1)
         //ICMP
-        parseIPv4ICMP(packetData, root);
+        parseICMP(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 6)
         //TCP
-        parseIPv4TCP(packetData, root);
+        parseTCP(packetData, root);
     else if (static_cast<int>(ipHeader.protocol) == 17)
         //UDP
-        parseIPv4UDP(packetData, root);
+        parseUDP(packetData, root);
+    else{
+        Json::StreamWriterBuilder writerBuilder;
+        string jsonString = Json::writeString(writerBuilder, root);
+        ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+        if (outputPacket.is_open())
+            outputPacket << jsonString;
+        else {
+            cerr << "Unable to create Json!\n";
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
-void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root) {
+void parseICMP(vector<uint8_t> packetData, Json::Value root) {
     if (packetData.size() < sizeof(ICMPHeader)){
         cerr << "Incomplete ICMP header!\n";
         exit(EXIT_FAILURE);
@@ -478,7 +591,7 @@ void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root) {
         else if (icmpHeader.code == 5)
             root["ICMP Code"] = "Source route failed (5)";
     }
-    else if (icmpHeader.type == 8){
+    else if (icmpHeader.type == 8 or icmpHeader.type == 128){
         root["ICMP Type"] = "Echo Request";
         root["ICMP Code"] = "Same as type (0)";
 
@@ -536,7 +649,7 @@ void parseIPv4ICMP(vector<uint8_t> packetData, Json::Value root) {
     }
 }
 
-void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root) {
+void parseTCP(vector<uint8_t> packetData, Json::Value root) {
     if (packetData.size() < sizeof(TCPHeader)) {
         cerr << "Incomplete TCP header!\n";
         exit(EXIT_FAILURE);
@@ -597,7 +710,7 @@ void parseIPv4TCP(vector<uint8_t> packetData, Json::Value root) {
     }
 }
 
-void parseIPv4UDP(vector<uint8_t> packetData, Json::Value root) {
+void parseUDP(vector<uint8_t> packetData, Json::Value root) {
     if (packetData.size() < sizeof(UDPHeader)){
         cerr << "Incomplete UDP header!\n";
         exit(EXIT_FAILURE);

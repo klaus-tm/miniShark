@@ -2,8 +2,8 @@ C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\
 -- Running vcpkg install
 Detecting compiler hash for triplet x64-windows...
 All requested packages are currently installed.
-Restored 0 package(s) from C:\Users\cerce\AppData\Local\vcpkg\archives in 98.1 us. Use --debug to see more details.
-Total install time: 124 us
+Restored 0 package(s) from C:\Users\cerce\AppData\Local\vcpkg\archives in 99.6 us. Use --debug to see more details.
+Total install time: 126 us
 jsoncpp provides CMake targets:
 
     # this is heuristically generated, and may not be correct
@@ -14,10 +14,4 @@ jsoncpp provides CMake targets:
 -- JsonCpp Version: 1.9.5
 -- Configuring done
 -- Generating done
-CMake Warning:
-  Manually-specified variables were not used by the project:
-
-    CMAKE_TOOLCHAIN_FILE
-
-
 -- Build files have been written to: D:/projects/c++/miniShark/cmake-build-debug
