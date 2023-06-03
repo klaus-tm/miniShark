@@ -22,11 +22,12 @@ let screenWidth_all = window.innerWidth;
 const header = document.querySelector('#header');
 header.style.width = screenWidth_all - 60 + 'px';
 
+
 //redimensionarea componentelor daca ecranul isi schmba dimensiunea
 window.addEventListener('resize', function() {
   screenWidth_all=window.innerWidth;
-  header.style.width = screenWidth_all - 50 + 'px';});
-
+  header.style.width = screenWidth_all - 60 + 'px';
+});
 
 
 const logo = document.getElementById('logo');

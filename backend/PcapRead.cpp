@@ -147,13 +147,17 @@ int main(int argc, char* argv[]) {
     }
 
     //check if file path was provided by the child process call in js. NOT YET IMPLEMENTED!!!
-//    if (argc < 2)
-//        cerr << "File path not provided!\n";
-//    else
-//        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
+    if (argc < 2)
+        cerr << "File path not provided!\n";
+    else
+        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
 
     // Open the PCAP file. Test files: fuzz-2006-07-09-6023, yes, icmp, udp, arp
-    ifstream file("C:\\Users\\cerce\\Desktop\\yes.pcap"/*change string with filePath*/, ios::binary);
+<<<<<<< Updated upstream
+    ifstream file(filePath/*"C:\\Users\\cerce\\Desktop\\yes.pcap"/*change string with filePath*/, ios::binary);
+=======
+    ifstream file(filePath/*"C:\\Users\\cerce\\Desktop\\arp.pcap"/*change string with filePath*/, ios::binary);
+>>>>>>> Stashed changes
     if (!file.is_open()) {
         cerr << "Error opening pcap file\n";
         exit(EXIT_FAILURE);

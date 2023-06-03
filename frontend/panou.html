@@ -56,12 +56,14 @@
 			<!--td class="filtre"><button id="hex" disabled="true">HEX packet</button></td-->
 			<td class="filtre"><button id="capture" disabled="true">Packet capture</button></td>
 		</tr>
+		<tr>
+			<label for="special_filter">What do you want to be printed? (Default: all data)</label>
+			<input type="text" name="special_filter" id="special_filter">
 	</table>
-	<label for="consola"></label>
 	<textarea disabled id="consola">Here you will see the data in the required format.</textarea>
 </main>
 <script type="text/javascript" src="all.js"></script>
-<!--<script type="text/javascript" src="panou.js"></script>-->
+<script type="text/javascript" src="panou.js"></script>
 <script src="FileSaver.js"></script>
 <script src="renderer.js" type="module"></script>
 </body>

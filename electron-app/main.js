@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron');
 const path = require('path');
 const url = require('url');
+const cp = require('child_process');
 
 //let mainWindow;
 
@@ -27,11 +28,23 @@ function createWindow() {
   //inchide fereastra cand utilizatorul o inchide
   //mainWindow.on('closed', function() {mainWindow = null;});
 
-  ipcMain.on('file-selected', (event, file) => {
-    console.log(file);
-    console.log(app.getPath('userData'));
+  ipcMain.on('file-selected', (event, { x,file} ) => {
+    //console.log(file,' - ',x);
+    //console.log(app.getPath('userData'));
     const filePath = path.join(app.getPath('userData'), file);
-    event.reply('file-processed', filePath);
+
+    //butonul human readable
+    if(x === 'HR'){
+      var executable='./PcapRead.exe';
+      var runner=cp.execFile(executable,[filePath],(error,out,err)=>{
+        if (error) {
+          throw error;
+        }else{
+              console.log(out);
+          }
+        });
+      }
+    //event.reply('file-processed', filePath);
   });
 }
 

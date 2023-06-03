@@ -10,16 +10,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@electron-forge/cli": "^6.1.1",
-    "electron": "^13.0.0",
-    "webpack": "^5.82.1",
-    "webpack-cli": "^5.1.1",
-    "babel-loader": "^8.2.3",
     "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0"
+    "@babel/preset-env": "^7.15.0",
+    "@electron-forge/cli": "^6.1.1",
+    "babel-loader": "^8.2.3",
+    "electron": "^13.6.9",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1"
   },
   "dependencies": {
     "@electron/remote": "^2.0.9",
+    "child_process": "^1.0.2",
     "electron-context-menu": "^3.6.1",
     "formidable": "^2.1.1"
   },

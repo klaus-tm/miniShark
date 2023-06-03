@@ -1,30 +1,9 @@
-
 const humanReadable = document.querySelector('#human_readable');
 const consolaTextarea = document.querySelector('#consola');
 const fileObj=document.querySelector('#file');
 const consola=document.querySelector('#consola');
 
-//let savedFilePath = '';
 let file;
-
-function saveFileLocally(file) {
-  // Salvează fișierul local
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      //const data = event.target.result;
-      const blob = new Blob([file], { type: 'application/vnd.tcpdump.pcap' });
-      
-      // Generează un nume unic pentru fișier
-      const uniqueFileName = 'file-' + Date.now() + '.pcap';
-      
-      // Salvează fișierul local utilizând FileSaver.js (asigură-te că ai inclus scriptul FileSaver.js în pagina HTML)
-      saveAs(blob, uniqueFileName);
-      
-      // Obține calea absolută a fișierului salvat
-      savedFilePath = window.URL.createObjectURL(blob);
-    };
-    reader.readAsArrayBuffer(file);
-}
 
 function loadFile(e){
   file=e.target.files[0];
@@ -46,13 +25,13 @@ function loadFile(e){
 function humanFct(e) {
   if (file) {
     // Trimiterea fișierului către procesul principal
-    console.log(file);
-    window.electronAPI.sendFileToMainProcess(file.name);
+    //console.log(file);
+    window.electronAPI.sendFileToMainProcess('HR',file.name);
   
     // Ascultarea răspunsului de la procesul principal
-    window.electronAPI.receiveProcessedFilePath((filePath) => {
+    /*window.electronAPI.receiveProcessedFilePath((filePath) => {
       console.log('Calea absolută a fișierului procesat:', filePath);
-    });
+    });*/
   }
 }
 

@@ -22,6 +22,8 @@
   --eroare: #d10a0a;
 
   --sky: url("https://www.daysoftheyear.com/cdn-cgi/image/dpr=1%2Cf=auto%2Cfit=cover%2Cheight=650%2Cq=70%2Csharpen=1%2Cwidth=956/wp-content/uploads/look-up-at-the-sky-day-1.jpg");
+
+  --header-bg:linear-gradient(90deg, #00d4ff 0%, #3a98b9 58%, #020024 100%);
 }
 
 .dark {
@@ -45,6 +47,8 @@
   --black: #B3B3B3;
 
   --sky:url("https://media.npr.org/assets/img/2023/01/31/gettyimages-1233916768_wide-720ee9992ced3fd03109a4bc88faaf7932226114-s1100-c50.jpg");
+
+  --header-bg: linear-gradient(90deg, rgba(30,53,103,1) 0%, rgba(12,25,52,1) 40%);
 }
 
 /*main*/
@@ -59,7 +63,7 @@ main{
   color: var(--black);
 }
 
-button#save, button#human_readable, button#hex, button#capture{
+button#human_readable, button#hex, button#capture{
 	color: var(--btn-text);
   padding: 12px 20px;
 	border: none;
@@ -68,15 +72,21 @@ button#save, button#human_readable, button#hex, button#capture{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+  height: 30px;
+  background-color: var(--btn-color);
+  cursor: pointer;
 }
 
-button#save:hover, button#human_readable:hover, button#hex:hover, button#capture:hover{
+button#human_readable:hover, button#hex:hover, button#capture:hover{
   background-color: var(--btn-hover);
 }
 
-button#save{
-  background-color: var(--btn-color);
-  cursor: pointer;
+button#human_readable:disabled, button#hex:disabled, button#capture:disabled{
+  background-color: var(--btn-disabled);
+  cursor: not-allowed;
 }
 
 table {
@@ -158,7 +168,7 @@ select option {
   opacity: 0;
 }
 
-button#save, input[type="file"] {
+input[type="file"] {
   width: 150px;
   height: 30px;
 }
@@ -176,21 +186,6 @@ td.filtre {
   text-align: center;
 }
 
-button#human_readable, button#hex, button#capture {
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 200px;
-  height: 30px;
-  background-color: var(--btn-color);
-  color: var(--btn-text);
-  cursor: pointer;
-}
-
-button#human_readable:disabled, button#hex:disabled, button#capture:disabled{
-  background-color: var(--btn-disabled);
-  cursor: not-allowed;
-}
-
 /*mesaj eroare*/
 #eroare{
   color: var(--eroare);
@@ -203,4 +198,12 @@ textarea#consola {
   color: var(--consola-color);
   border: none;
   height: 700px;
+}
+
+button#human_readable, button#hex, button#capture{
+  font-size: 16px;
+  width: 200px;
+  height: 30px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
