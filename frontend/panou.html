@@ -44,6 +44,20 @@
 			</td></tr>
 		<tr><td></td><td id="eroare"></td></tr>
 		<tr><td></td><td><button id="save">Save</button></td></tr>
+		<tr>
+			<td><label for="special_filter">What do you want to be printed?</label></td>
+			<td>
+				<select id="special_filter">
+					<option value="All">All</option>
+					<option value="Ethernet">Ethernet</option>
+					<option value="IP">IP</option>
+					<option value="Packet">Packet</option>
+					<option value="TCP">TCP</option>
+					<option value="UDP">UDP</option>
+					<option value="ICMP">ICMP</option>
+					<option value="ARP">ARP</option>
+				</select>
+			</td></tr>
 	</table>
 	<br>
 	<table id="filtreID">
@@ -52,9 +66,6 @@
 			<!--td class="filtre"><button id="hex" disabled="true">HEX packet</button></td-->
 			<td class="filtre"><button id="capture" disabled="true">Packet capture</button></td>
 		</tr>
-		<tr>
-			<!--label for="special_filter">What do you want to be printed? (Default: all data)</label>
-			<input type="text" name="special_filter" id="special_filter"-->
 	</table>
 	<textarea disabled id="consola">Here you will see the data in the required format.</textarea>
 </main>

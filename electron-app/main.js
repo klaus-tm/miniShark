@@ -27,7 +27,7 @@ function createWindow() {
   );
 
   ipcMain.on('file-selected', (event, { x, filePath } ) => {
-    console.log('Main - ',x,filePath);
+    //console.log('Main - ',x,filePath);
     //butonul human readable
     if(x === 'HR'){
       var executable='./PcapRead.exe';
@@ -37,11 +37,19 @@ function createWindow() {
           console.error('Stderr:', err);
           throw error;
         }else{
-              console.log(out);
-              event.reply('human-readable successed', filePath);
+              let n='';
+              for(let i in out){
+                let value = out[i];
+                if (value !== ' ') n += value;
+                else break;
+              }
+              console.log('Main - Nr pachete: ',n);
+              event.reply('human-readable successed', n);
           }
         });
       }
+  
+
   });
 }
 

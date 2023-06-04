@@ -26,23 +26,27 @@
 			</div>
 	</header>
 	<main id="tutorial">
+		<h1 id="note">The application is still under development. Currently, the packet capture part only works on Windows.</h1>
 		<h1>About the project</h1>
 		<p>Our project is a variation on a smaller scale, but easier to understand, of WireShark.</p>
 		<p>The app consists of two main components: the tutorial part and the main panel. In the main panel, users can interact with a form to analyze network traffic. The form includes the following fields: platform: Users can select the platform they use to connect to the Internet, such as WI-FI or Ethernet, Operating System: Users can choose the type of operating system they are using, such as Windows or Linux.</p>
 		<p>By providing this information and submitting the form, users will be able to analyze the network traffic based on their platform and operating system, using the data from the inserted PCAP file. This allows for a comprehensive understanding of network activity and facilitates troubleshooting and analysis tasks.,/
 		<p>The form look like this:</p>
-		<img src="style/tutorial_img1.png" height="100">
+		<div id="img"></div>
 		<h1>What is WireShark?</h1>
 		<p>Wireshark is a free and open-source packet analyzer. It is used for network troubleshooting, analysis, software and communications protocol development, and education.</p>
 		<h1>What is a PCAP file?</h1>
 		<p>A PCAP (Packet Capture) file is a common file format used to store network packet data captured during network monitoring or analysis. PCAP files are typically created by network sniffing tools or packet capture software, such as Wireshark or tcpdump.
 		A PCAP file contains a record of network packets captured from a network interface or a specific network segment. Each packet within the file includes various details such as source and destination IP addresses, port numbers, protocol information, packet length, and the actual packet data.
 		<b>Note: our app support only PCAP files, if you upload other types of files you will receive an error message.</b></p>
+		<h1>What do you have to do?</h1>
+		<p>You will have to write in the input label the absolute path to a PCAP file, then press the "Save" button.</p>
+		<p>We offer you the opportunity to see only part of the data that we read from the file provided by you, through the select under the "Save" button.</p>
 		<h1>What will we do with the PCAP file?</h1>
 		<p><b>We will not keep the file or other user data.</b></p>
 			<ul>
 				<li>Files containing binary data will be interpreted and given for viewing in a format easy to understand by the user, extracting important information from the structure of a network packet and organizing them into specific categories, using this button: <button id="human_readable">Human readable</button>
-				With this you will could see what date contains your PCAP file (eg: IP, Magic number, type of Endian)</li>
+				With this you will could see what date contains your PCAP file (eg: IP type, Magic number)</li>
 				<li>Live capture of packets in the current OS (Linux, Windows), interception and recording of real-time network traffic on a computer, using this button: <button id="capture">Packet capture</button></li></ul>
 	</main>
 	<script type="text/javascript" src="all.js"></script>
