@@ -1,0 +1,18 @@
+{
+	"ARP Hardware Length" : "6",
+	"ARP Hardware Type" : "Ethernet",
+	"ARP Operation" : "ARP Request",
+	"ARP Protocol Length" : "4",
+	"ARP Protocol Type" : "IPv4",
+	"ARP Sender IP Adress" : "192.168.0.81",
+	"ARP Sender Mac Adress" : "c0:25:2f:f5:ae:a8",
+	"ARP Target IP Adress" : "192.168.0.38",
+	"ARP Target Mac Adress" : "00:00:00:00:00:00",
+	"Ethernet Destination Mac Adress" : "ff:ff:ff:ff:ff:ff",
+	"Ethernet Ether Type" : "ITS A TRAP!!! Got it? TRAP from ARP. No? Oke fine its ARP and also......work in progress....",
+	"Ethernet Source Mac Adress" : "c0:25:2f:f5:ae:a8",
+	"Packet Captured Length" : "42 bytes",
+	"Packet Number" : "1",
+	"Packet Original Length" : "42 bytes",
+	"Packet Timestamp" : "1684247184.215760"
+}

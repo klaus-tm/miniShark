@@ -1,0 +1,23 @@
+{
+	"Ethernet Destination Mac Adress" : "38:c9:86:2d:92:61",
+	"Ethernet Ether Type" : "IPv6.....work in progress......",
+	"Ethernet Source Mac Adress" : "00:e0:4c:36:1c:43",
+	"ICMP Checksum" : "31e7",
+	"ICMP Code" : "Same as type (0)",
+	"ICMP Identifier" : "49441",
+	"ICMP Sequence Number" : "1792",
+	"ICMP Type" : "Echo Request",
+	"IP Destination Adress" : "2001:0db8:0001:0000:0000:0000:0000:00012001:0db8:0002:0000:0000:0000:0000:0002",
+	"IP Flow Label" : "48245",
+	"IP Hop Limit" : "64",
+	"IP Next Header" : "ICMPv6",
+	"IP Payload Length" : "16",
+	"IP Source Adress" : "2001:0db8:0001:0000:0000:0000:0000:0001",
+	"IP Traffic Class" : "Default",
+	"IP Version" : "6",
+	"Packet Captured Length" : "70 bytes",
+	"Packet Data" : "\\\u0625\u4002N\u000f",
+	"Packet Number" : "1",
+	"Packet Original Length" : "70 bytes",
+	"Packet Timestamp" : "1553475044.151140"
+}

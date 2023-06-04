@@ -1,0 +1,69 @@
+:root {
+  --black: #000;
+  --btn-color: #3A98B9;
+  --btn-hover:#2f7b96;
+  --btn-text:#dee4e7;
+  --eroare: #d10a0a;
+
+  --img1: url("tutorial_img1.png");
+}
+
+.dark {
+  --black: #B3B3B3;
+  --btn-color: #14213d;
+  --btn-hover: #1c2b4d;
+  --btn-text: #B3B3B3;
+
+  --img1:url("tutorial_img2.png");
+}
+
+#img{
+  width: 700px;
+  height: 100px;
+  background-image: var(--img1);
+  background-size: cover;
+}
+
+h1 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--black);
+}
+
+h1#note{
+  color: var(--eroare);
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+ul {
+  margin-bottom: 10px;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+.bullet-list li {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.bullet-list li {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+main {
+  margin: 30dx;
+  color: var(--black);
+}
+
+button#human_readable, button#hex, button#capture{
+  font-size: 14px;
+  width: 150px;
+  height: 30px;
+}
