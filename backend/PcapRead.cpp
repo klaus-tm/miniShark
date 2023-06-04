@@ -7,7 +7,6 @@
 #include <iomanip>
 #include <sstream>
 #include <algorithm>
-#include <bitset>
 #include <json/json.h>
 #include <windows.h>
 #include <filesystem>
@@ -17,6 +16,7 @@ using namespace std;
 uint32_t value = 0x12345678;
 bool littleEndian = false;
 int nr = 0;
+string path = __FILE__;
 struct PcapGlobalHeader {
     uint32_t magicNumber;   // magic number
     uint16_t versionMajor;  // major version number
@@ -135,7 +135,6 @@ int main(int argc, char* argv[]) {
     }
 
     //delete all older jsons if they exist
-    string path = __FILE__;
     path = path.substr(0, path.length() - 12);
     path = path + "output";
     for (const auto& file : std::filesystem::directory_iterator(path)) {
@@ -147,17 +146,16 @@ int main(int argc, char* argv[]) {
     }
 
     //check if file path was provided by the child process call in js. NOT YET IMPLEMENTED!!!
-    if (argc < 2)
+    string filePath;
+    if (argc < 2){
         cerr << "File path not provided!\n";
+        exit(EXIT_FAILURE);
+    }
     else
-        string filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
+        filePath = argv[1]; // use it to parse file path from js. NOT YET IMPLEMENTED!!!
 
     // Open the PCAP file. Test files: fuzz-2006-07-09-6023, yes, icmp, udp, arp
-<<<<<<< Updated upstream
-    ifstream file(filePath/*"C:\\Users\\cerce\\Desktop\\yes.pcap"/*change string with filePath*/, ios::binary);
-=======
     ifstream file(filePath/*"C:\\Users\\cerce\\Desktop\\arp.pcap"/*change string with filePath*/, ios::binary);
->>>>>>> Stashed changes
     if (!file.is_open()) {
         cerr << "Error opening pcap file\n";
         exit(EXIT_FAILURE);
@@ -288,7 +286,15 @@ void parseEthernet(vector<uint8_t> packetData, Json::Value root) {
         root["Ethernet Ether Type"] = "I apologise but we're not network scientist we only know IPv4, IPv6, and ARP. Most likely this packet is corrupted so ye. Please refer to WireShark if you want a more professional tool :)";
         Json::StreamWriterBuilder writerBuilder;
         string jsonString = Json::writeString(writerBuilder, root);
-        ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+        path = path.substr(0, path.length() - 6);
+        path = path + "output";
+        string newPath;
+        for(char c: path){
+            if (c == '/')
+                newPath += "\\";
+            else newPath += c;
+        }
+        ofstream outputPacket(newPath + "\\packet" + root["Packet Number"].asString() + ".json");
         if (outputPacket.is_open())
             outputPacket << jsonString;
         else {
@@ -405,7 +411,15 @@ void parseIPv6(vector<uint8_t> packetData, Json::Value root) {
     else{
         Json::StreamWriterBuilder writerBuilder;
         string jsonString = Json::writeString(writerBuilder, root);
-        ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+        path = path.substr(0, path.length() - 6);
+        path = path + "output";
+        string newPath;
+        for(char c: path){
+            if (c == '/')
+                newPath += "\\";
+            else newPath += c;
+        }
+        ofstream outputPacket(newPath + "\\packet" + root["Packet Number"].asString() + ".json");
         if (outputPacket.is_open())
             outputPacket << jsonString;
         else {
@@ -532,7 +546,15 @@ void parseIPv4(vector<uint8_t> packetData, Json::Value root) {
     else{
         Json::StreamWriterBuilder writerBuilder;
         string jsonString = Json::writeString(writerBuilder, root);
-        ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+        path = path.substr(0, path.length() - 6);
+        path = path + "output";
+        string newPath;
+        for(char c: path){
+            if (c == '/')
+                newPath += "\\";
+            else newPath += c;
+        }
+        ofstream outputPacket(newPath + "\\packet" + root["Packet Number"].asString() + ".json");
         if (outputPacket.is_open())
             outputPacket << jsonString;
         else {
@@ -644,7 +666,15 @@ void parseICMP(vector<uint8_t> packetData, Json::Value root) {
     //create json file
     Json::StreamWriterBuilder writerBuilder;
     string jsonString = Json::writeString(writerBuilder, root);
-    ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+    path = path.substr(0, path.length() - 6);
+    path = path + "output";
+    string newPath;
+    for(char c: path){
+        if (c == '/')
+            newPath += "\\";
+        else newPath += c;
+    }
+    ofstream outputPacket(newPath + "\\packet" + root["Packet Number"].asString() + ".json");
     if (outputPacket.is_open())
         outputPacket << jsonString;
     else {
@@ -705,7 +735,15 @@ void parseTCP(vector<uint8_t> packetData, Json::Value root) {
     //create json file
     Json::StreamWriterBuilder writerBuilder;
     string jsonString = Json::writeString(writerBuilder, root);
-    ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+    path = path.substr(0, path.length() - 6);
+    path = path + "output";
+    string newPath;
+    for(char c: path){
+        if (c == '/')
+            newPath += "\\";
+        else newPath += c;
+    }
+    ofstream outputPacket(newPath + "\\packet" + root["Packet Number"].asString() + ".json");
     if (outputPacket.is_open())
         outputPacket << jsonString;
     else {
@@ -745,7 +783,15 @@ void parseUDP(vector<uint8_t> packetData, Json::Value root) {
     //create json file
     Json::StreamWriterBuilder writerBuilder;
     string jsonString = Json::writeString(writerBuilder, root);
-    ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+    path = path.substr(0, path.length() - 6);
+    path = path + "output";
+    string newPath;
+    for(char c: path){
+        if (c == '/')
+            newPath += "\\";
+        else newPath += c;
+    }
+    ofstream outputPacket(newPath + "\\packet" + root["Packet Number"].asString() + ".json");
     if (outputPacket.is_open())
         outputPacket << jsonString;
     else {
@@ -843,7 +889,15 @@ void parseARP(vector<uint8_t> packetData, Json::Value root) {
     //create json file
     Json::StreamWriterBuilder writerBuilder;
     string jsonString = Json::writeString(writerBuilder, root);
-    ofstream outputPacket("../../backend/output/packet" + root["Packet Number"].asString() + ".json");
+    path = path.substr(0, path.length() - 6);
+    path = path + "output";
+    string newPath;
+    for(char c: path){
+        if (c == '/')
+            newPath += "\\";
+        else newPath += c;
+    }
+    ofstream outputPacket(newPath + "\\packet" + root["Packet Number"].asString() + ".json");
     if (outputPacket.is_open())
         outputPacket << jsonString;
     else {
