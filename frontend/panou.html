@@ -38,16 +38,12 @@
 				<option value="Windows">Windows</option>
 				<option value="Linux">Linux</option>
 			</select></td></tr>
-		<tr><td><label for="file">Choose a file</label></td>
+		<tr><td><label for="cale">Write the absolute path to the pcap file</label></td>
 			<td class="rand2">
-				<div class="upload-btn-wrapper">
-					<form method="POST" enctype="multipart/form-data" action="/upload" id="form-file">
-						<input type="file" name="file" id="file">
-						<button class="btn" type="submit">Upload a file</button>
-					</form>
-				</div>
+    			<input type="text" id="cale" name="cale" required>
 			</td></tr>
 		<tr><td></td><td id="eroare"></td></tr>
+		<tr><td></td><td><button id="save">Save</button></td></tr>
 	</table>
 	<br>
 	<table id="filtreID">
@@ -57,8 +53,8 @@
 			<td class="filtre"><button id="capture" disabled="true">Packet capture</button></td>
 		</tr>
 		<tr>
-			<label for="special_filter">What do you want to be printed? (Default: all data)</label>
-			<input type="text" name="special_filter" id="special_filter">
+			<!--label for="special_filter">What do you want to be printed? (Default: all data)</label>
+			<input type="text" name="special_filter" id="special_filter"-->
 	</table>
 	<textarea disabled id="consola">Here you will see the data in the required format.</textarea>
 </main>

@@ -63,7 +63,7 @@ main{
   color: var(--black);
 }
 
-button#human_readable, button#hex, button#capture{
+button#save, button#human_readable, button#hex, button#capture{
 	color: var(--btn-text);
   padding: 12px 20px;
 	border: none;
@@ -80,7 +80,7 @@ button#human_readable, button#hex, button#capture{
   cursor: pointer;
 }
 
-button#human_readable:hover, button#hex:hover, button#capture:hover{
+button#save, button#human_readable:hover, button#hex:hover, button#capture:hover{
   background-color: var(--btn-hover);
 }
 
@@ -145,7 +145,7 @@ select option {
 }
 
 /*incarcare*/
-.upload-btn-wrapper {
+/*.upload-btn-wrapper {
   position: relative;
   overflow: hidden;
   display: inline-block;
@@ -171,7 +171,7 @@ select option {
 input[type="file"] {
   width: 150px;
   height: 30px;
-}
+}*/
 
 #eroare{
   font-color:red;
@@ -206,4 +206,8 @@ button#human_readable, button#hex, button#capture{
   height: 30px;
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+#cale{
+  width: 300px;
 }

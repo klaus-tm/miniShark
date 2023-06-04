@@ -1,4 +1,5 @@
-const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, shell, dialog } = require('electron');
+const fs = require('fs');
 const path = require('path');
 const url = require('url');
 const cp = require('child_process');
@@ -25,28 +26,26 @@ function createWindow() {
     })
   );
 
-  //inchide fereastra cand utilizatorul o inchide
-  //mainWindow.on('closed', function() {mainWindow = null;});
-
-  ipcMain.on('file-selected', (event, { x,file} ) => {
-    //console.log(file,' - ',x);
-    //console.log(app.getPath('userData'));
-    const filePath = path.join(app.getPath('userData'), file);
-
+  ipcMain.on('file-selected', (event, { x, filePath } ) => {
+    console.log('Main - ',x,filePath);
     //butonul human readable
     if(x === 'HR'){
       var executable='./PcapRead.exe';
       var runner=cp.execFile(executable,[filePath],(error,out,err)=>{
         if (error) {
+          console.error('Error:', error);
+          console.error('Stderr:', err);
           throw error;
         }else{
               console.log(out);
+              event.reply('human-readable successed', filePath);
           }
         });
       }
-    //event.reply('file-processed', filePath);
   });
 }
+
+
 
 //creeaza fereastra cand Electron este gata
 app.on('ready', () => {

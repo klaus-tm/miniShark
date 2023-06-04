@@ -1,12 +1,12 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  sendFileToMainProcess: (x,file) => {
-    //console.log("am ajuns aici", file);
-    ipcRenderer.send('file-selected', { x, file } );
+  sendFileToMainProcess: (x,filePath) => {
+    //console.log("Preload - ", filePath);
+    ipcRenderer.send('file-selected', { x, filePath } );
   },
   receiveProcessedFilePath: (callback) => {
-    ipcRenderer.on('file-processed', (event, filePath) => {
+    ipcRenderer.on('human-readable successed', (event, filePath) => {
       callback(filePath);
     });
   },
