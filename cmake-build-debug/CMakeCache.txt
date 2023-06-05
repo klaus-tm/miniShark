@@ -384,9 +384,6 @@ MEMORYCHECK_COMMAND:FILEPATH=MEMORYCHECK_COMMAND-NOTFOUND
 //File that contains suppressions for the memory checker
 MEMORYCHECK_SUPPRESSIONS_FILE:FILEPATH=
 
-//The directory containing a CMake configuration file for PcapPlusPlus.
-PcapPlusPlus_DIR:PATH=PcapPlusPlus_DIR-NOTFOUND
-
 //Name of the computer/site where compile is being run
 SITE:STRING=DESKTOP-9V1OS39
 
@@ -439,6 +436,12 @@ VCPKG_TRACE_FIND_PACKAGE:BOOL=OFF
 
 //Enables messages from the VCPKG toolchain for debugging purposes.
 VCPKG_VERBOSE:BOOL=OFF
+
+//D:/projects/c++/miniShark/extern/winpcap
+WPCAP_DIR:PATH=C:/msys64/mingw64
+
+//Path to a library.
+WPCAP_LIBRARY:FILEPATH=D:/projects/c++/miniShark/cmake-build-debug/vcpkg_installed/x64-windows/debug/lib/wpcap.lib
 
 //(experimental) Automatically copy dependencies into the install
 // target directory for executables. Requires CMake 3.14.

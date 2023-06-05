@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_miniShark: phony || cmake_object_order_d
 build CMakeFiles/miniShark.dir/backend/PcapRead.cpp.obj: CXX_COMPILER__miniShark_Debug D$:/projects/c++/miniShark/backend/PcapRead.cpp || cmake_object_order_depends_target_miniShark
   DEP_FILE = CMakeFiles\miniShark.dir\backend\PcapRead.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
+  INCLUDES = -ID:/projects/c++/miniShark/extern/winpcap/include -ID:/projects/c++/miniShark/extern/jsoncpp/src/lib_json/../../include -ID:/projects/c++/miniShark/cmake-build-debug/extern/jsoncpp/include/json
   OBJECT_DIR = CMakeFiles\miniShark.dir
   OBJECT_FILE_DIR = CMakeFiles\miniShark.dir\backend
 
@@ -73,6 +73,40 @@ build bin/miniShark.exe: CXX_EXECUTABLE_LINKER__miniShark_Debug CMakeFiles/miniS
   TARGET_FILE = bin\miniShark.exe
   TARGET_IMPLIB = lib\libminiShark.dll.a
   TARGET_PDB = miniShark.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target PacketSniff
+
+
+#############################################
+# Order-only phony target for PacketSniff
+
+build cmake_object_order_depends_target_PacketSniff: phony || CMakeFiles/PacketSniff.dir
+
+build CMakeFiles/PacketSniff.dir/backend/PcapSniff.cpp.obj: CXX_COMPILER__PacketSniff_Debug D$:/projects/c++/miniShark/backend/PcapSniff.cpp || cmake_object_order_depends_target_PacketSniff
+  DEP_FILE = CMakeFiles\PacketSniff.dir\backend\PcapSniff.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -ID:/projects/c++/miniShark/extern/winpcap/include
+  OBJECT_DIR = CMakeFiles\PacketSniff.dir
+  OBJECT_FILE_DIR = CMakeFiles\PacketSniff.dir\backend
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target PacketSniff
+
+
+#############################################
+# Link the executable bin\PacketSniff.exe
+
+build bin/PacketSniff.exe: CXX_EXECUTABLE_LINKER__PacketSniff_Debug CMakeFiles/PacketSniff.dir/backend/PcapSniff.cpp.obj | vcpkg_installed/x64-windows/debug/lib/wpcap.lib
+  FLAGS = -g
+  LINK_LIBRARIES = -lws2_32  vcpkg_installed/x64-windows/debug/lib/wpcap.lib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\PacketSniff.dir
+  POST_BUILD = cmd.exe /C "cd /D D:\projects\c++\miniShark\cmake-build-debug && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/cerce/.clion-vcpkg/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/projects/c++/miniShark/cmake-build-debug/bin/PacketSniff.exe -installedDir D:/projects/c++/miniShark/cmake-build-debug/vcpkg_installed/x64-windows/debug/bin -OutVariable out"
+  PRE_LINK = cd .
+  TARGET_FILE = bin\PacketSniff.exe
+  TARGET_IMPLIB = lib\libPacketSniff.dll.a
+  TARGET_PDB = PacketSniff.exe.dbg
 
 
 #############################################
@@ -1262,6 +1296,10 @@ build NightlyTest: phony extern/jsoncpp/NightlyTest
 
 build NightlyUpdate: phony extern/jsoncpp/NightlyUpdate
 
+build PacketSniff: phony bin/PacketSniff.exe
+
+build PacketSniff.exe: phony bin/PacketSniff.exe
+
 build jsoncpp_check: phony extern/jsoncpp/src/jsontestrunner/jsoncpp_check
 
 build jsoncpp_lib: phony bin/libjsoncpp.dll
@@ -1296,7 +1334,7 @@ build miniShark.exe: phony bin/miniShark.exe
 #############################################
 # Folder: D:/projects/c++/miniShark/cmake-build-debug
 
-build all: phony bin/miniShark.exe extern/jsoncpp/all
+build all: phony bin/miniShark.exe bin/PacketSniff.exe extern/jsoncpp/all
 
 # =============================================================================
 

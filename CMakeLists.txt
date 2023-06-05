@@ -3,7 +3,8 @@ project(miniShark)
 
 set(CMAKE_CXX_STANDARD 17)
 add_subdirectory("${PROJECT_SOURCE_DIR}/extern/jsoncpp" "extern/jsoncpp")
-#add_subdirectory("${PROJECT_SOURCE_DIR}/extern/PcapPlusPlus" "extern/PcapPlusPlus")
+set(WPCAP_DIR "${PROJECT_SOURCE_DIR}/extern/winpcap")
+include_directories(${WPCAP_DIR}/include)
 add_executable(miniShark
         .idea/.gitignore
         .idea/miniShark.iml
@@ -11,14 +12,18 @@ add_executable(miniShark
         .idea/vcs.xml
         backend/PcapRead.cpp
         README.md)
+add_executable(PacketSniff backend/PcapSniff.cpp)
 if (WIN32)
     target_link_libraries(miniShark PRIVATE ws2_32)
+    target_link_libraries(PacketSniff PRIVATE ws2_32)
 endif ()
 if (UNIX)
     target_link_libraries(miniShark PRIVATE socket)
 endif ()
 
 find_package(jsoncpp CONFIG REQUIRED)
-#find_package(PcapPlusPlus CONFIG REQUIRED)
 target_link_libraries(miniShark PUBLIC jsoncpp_lib)
-#target_link_libraries(miniShark PUBLIC PcapPlusPlus_lib)
+find_library(WPCAP_LIBRARY wpcap HINTS ${WPCAP_DIR}/lib)
+target_link_libraries(PacketSniff PRIVATE ${WPCAP_LIBRARY})
+
+

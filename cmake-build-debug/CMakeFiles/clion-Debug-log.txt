@@ -2,8 +2,8 @@ C:\Users\cerce\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\231.8109.222\bin\
 -- Running vcpkg install
 Detecting compiler hash for triplet x64-windows...
 All requested packages are currently installed.
-Restored 0 package(s) from C:\Users\cerce\AppData\Local\vcpkg\archives in 99.6 us. Use --debug to see more details.
-Total install time: 126 us
+Restored 0 package(s) from C:\Users\cerce\AppData\Local\vcpkg\archives in 96.8 us. Use --debug to see more details.
+Total install time: 123 us
 jsoncpp provides CMake targets:
 
     # this is heuristically generated, and may not be correct

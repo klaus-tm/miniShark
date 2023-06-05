@@ -22,3 +22,12 @@ Abi: 7e5214ffb7aa14b1a0eeb771440dc861f9159de7cb7cb69e002650c988775c03
 Description: jsoncpp is an implementation of a JSON reader and writer in C++. JSON (JavaScript Object Notation) is a lightweight data-interchange format that it is easy to parse and redeable for human.
 Status: install ok installed
 
+Package: winpcap
+Version: 4.1.3
+Port-Version: 9
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 05b9c737555691926878c6604edc02ea02534191d3fc5d02210018e19e505207
+Description: WinPcap is the industry-standard tool for link-layer network access in Windows environments.
+Status: install ok installed
+
