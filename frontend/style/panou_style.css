@@ -63,7 +63,19 @@ main{
   color: var(--black);
 }
 
-button#save, button#human_readable, button#hex, button#capture{
+
+button#read,button#capture,button#human_readable{
+  width: 200px;
+  height: 30px;
+}
+
+button#stop,button#save{
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+button{
 	color: var(--btn-text);
   padding: 12px 20px;
 	border: none;
@@ -74,19 +86,22 @@ button#save, button#human_readable, button#hex, button#capture{
 	align-items: center;
   margin-right: 10px;
   margin-bottom: 10px;
-  width: 200px;
-  height: 30px;
   background-color: var(--btn-color);
   cursor: pointer;
 }
 
-button#save, button#human_readable:hover, button#hex:hover, button#capture:hover{
+button:hover{
   background-color: var(--btn-hover);
 }
 
-button#human_readable:disabled, button#hex:disabled, button#capture:disabled{
+button:disabled{
   background-color: var(--btn-disabled);
   cursor: not-allowed;
+}
+
+button.cap {
+  float: left;
+  margin-right: 10px;
 }
 
 table {
@@ -144,35 +159,6 @@ select option {
   color: var(--select5);
 }
 
-/*incarcare*/
-/*.upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-}
-
-.btn {
-  border: 1px solid var(--black);
-  color: var(--black);
-  background-color:var(--upload1);
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.upload-btn-wrapper input[type=file] {
-  font-size: 16px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
-
-input[type="file"] {
-  width: 150px;
-  height: 30px;
-}*/
-
 #eroare{
   font-color:red;
 }
@@ -198,6 +184,7 @@ textarea#consola {
   color: var(--consola-color);
   border: none;
   height: 700px;
+  clear: both;
 }
 
 button#human_readable, button#hex, button#capture{
@@ -210,4 +197,7 @@ button#human_readable, button#hex, button#capture{
 
 #cale{
   width: 300px;
+  height: 30px;
+  background-color: var(--consola-bg);
+  color: var(--consola-color);
 }

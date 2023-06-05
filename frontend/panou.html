@@ -43,7 +43,6 @@
     			<input type="text" id="cale" name="cale" required>
 			</td></tr>
 		<tr><td></td><td id="eroare"></td></tr>
-		<tr><td></td><td><button id="save">Save</button></td></tr>
 		<tr>
 			<td><label for="special_filter">What do you want to be printed?</label></td>
 			<td>
@@ -58,15 +57,15 @@
 					<option value="ARP">ARP</option>
 				</select>
 			</td></tr>
+			<tr><td><button id="read">Read the file</button></td>
+				<td><button id="human_readable" disabled="true">Human readable</button></td></tr>
 	</table>
 	<br>
-	<table id="filtreID">
-		<tr class="filtre">
-			<td class="filtre"><button id="human_readable" disabled="true">Human readable</button></td>
-			<!--td class="filtre"><button id="hex" disabled="true">HEX packet</button></td-->
-			<td class="filtre"><button id="capture" disabled="true">Packet capture</button></td>
-		</tr>
-	</table>
+	<div>
+		<button class="cap" id="capture">Packet capture</button>
+		<button class="cap" id="stop" disabled="true">||</button>
+		<button class="cap" id="save" disabled="true">>></button>
+	</div>
 	<textarea disabled id="consola">Here you will see the data in the required format.</textarea>
 </main>
 <script type="text/javascript" src="all.js"></script>

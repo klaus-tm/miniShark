@@ -1,8 +1,10 @@
 const humanReadable = document.querySelector('#human_readable');
 const consolaTextarea = document.querySelector('#consola');
-//const fileObj=document.querySelector('#file');
-const save=document.querySelector('#save');
+const read=document.querySelector('#read');
 const consola=document.querySelector('#consola');
+const capture=document.querySelector('#capture');
+const stop=document.querySelector('#stop');
+const save=document.querySelector('#save');
 
 let filePath;
 
@@ -19,32 +21,6 @@ function verificaCaleFisier(cale) {
       console.error('Network error:', error);
       throw error;
     });
-}
-
-
-function loadFile(e){
-  filePath = document.querySelector('#cale').value;
-  filePath=filePath.replace(/\\/g, '\\\\');
-
-  if (filePath.endsWith('.pcap')){
-    if(verificaCaleFisier(filePath)){
-      const eroareCell = document.getElementById('eroare');
-      eroareCell.textContent = '';
-      //salveaza fisierul local si ii ia calea
-      humanReadable.disabled = false;
-    }
-    else{
-      const eroareCell = document.getElementById('eroare');
-      eroareCell.textContent = 'Your file is not in PCAP format. Load a PCAP file.';
-      humanReadable.disabled = true;
-    }
-    
-  }
-  else{
-    const eroareCell = document.getElementById('eroare');
-    eroareCell.textContent = 'That is not a correct path.';
-    humanReadable.disabled = true;
-  }
 }
 
 
@@ -155,6 +131,31 @@ function readJson(n) {
 }
 
 
+function loadFile(e){
+  filePath = document.querySelector('#cale').value;
+  filePath=filePath.replace(/\\/g, '\\\\');
+
+  if (filePath.endsWith('.pcap')){
+    if(verificaCaleFisier(filePath)){
+      const eroareCell = document.getElementById('eroare');
+      eroareCell.textContent = '';
+      //salveaza fisierul local si ii ia calea
+      humanReadable.disabled = false;
+    }
+    else{
+      const eroareCell = document.getElementById('eroare');
+      eroareCell.textContent = 'Your file is not in PCAP format. Load a PCAP file.';
+      humanReadable.disabled = true;
+    }
+    
+  }
+  else{
+    const eroareCell = document.getElementById('eroare');
+    eroareCell.textContent = 'That is not a correct path.';
+    humanReadable.disabled = true;
+  }
+}
+
 function humanFct(e) {
   if (filePath) {
     window.electronAPI.sendFileToMainProcess('HR',filePath);
@@ -168,10 +169,61 @@ function humanFct(e) {
   }
 }
 
+let n1 = 8;
+let content1 = '';
+let currentIndex1 = 1;
+let stopFlag1 = false;
 
+function capturePacket() {
+  if (currentIndex1 > n1 || stopFlag1) {
+    return;
+  }
 
+  const jsonPath = `../backend/jsonOutput/packet${currentIndex1}.json`;
 
+  console.log(jsonPath);
 
-save.addEventListener('click',loadFile);
+  fetch(jsonPath)
+    .then(response => response.json())
+    .then(data => {
+      content1 += transform_hr(data, 'All');
+      if (content1) content1 += '\n';
+
+      consola.value = content1; // Actualizăm conținutul în textarea
+
+      currentIndex1++; // Trecem la următorul pachet
+
+      setTimeout(capturePacket, 1000); // Apelăm funcția recursivă după 1 secundă
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+function startCapture(e) {
+  stop.disabled = false;
+  save.disabled = false;
+
+  content1 = ''; // Resetăm conținutul
+  currentIndex1 = 1; // Resetăm indexul
+  stopFlag1 = false; // Resetăm flagul de oprire
+
+  capturePacket(); // Pornim procesul de capturare
+}
+
+function stopCapture(e) {
+  console.log("3");
+  stopFlag1 = true; // Setăm flagul de oprire
+}
+
+stop.addEventListener('click',stopCapture);
+
+save.addEventListener('click',function(){
+  alert('Your pcap was saved in ../backend/pcapOutput as capture1.pcap');
+});
+
+capture.addEventListener('click',startCapture);
+
+read.addEventListener('click',loadFile);
 
 humanReadable.addEventListener('click', humanFct);
